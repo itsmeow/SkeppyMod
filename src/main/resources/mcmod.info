@@ -1,0 +1,16 @@
+[
+{
+  "modid": "skeppymod",
+  "name": "Skeppy Mod",
+  "description": "A mod. It does things. Related to Skeppy.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["its_meow"],
+  "credits": "its_meow: for making this mod! Skeppy: for being hilarious and epic, BadBoyHalo: for being an adorable muffin, a6d: for being an epic baguette (and also probably being the most sane of the trio)",
+  "logoFile": "skeppyface.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]

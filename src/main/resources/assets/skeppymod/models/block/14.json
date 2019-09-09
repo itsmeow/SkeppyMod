@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "skeppymod:blocks/14side",
+    "down": "skeppymod:blocks/14top",
+    "up": "skeppymod:blocks/14top",
+    "east": "skeppymod:blocks/14side",
+    "west": "skeppymod:blocks/14side",
+    "north": "skeppymod:blocks/14side",
+    "south": "skeppymod:blocks/14side"
+  }
+}
