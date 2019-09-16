@@ -5,3 +5,6 @@ tile.skeppymod.statue_badboyhalo.name=BadBoyHalo Statue
 tile.skeppymod.statue_a6d.name=a6d Statue
 item.skeppymod.baguette.name=Baguette
 item.skeppymod.muffin.name=Muffin
+entity.skeppymod.mrsqueegy.name=Mr. Squeegy
+item.skeppymod.squeegy_bucket.name=Mr. Squeegy in a Bucket
+death.attack.bucket=%1$s was crammed into a bucket by %2$s

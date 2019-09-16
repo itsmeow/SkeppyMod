@@ -59,15 +59,15 @@ public class Block14 extends Block {
             if(!userIteration.containsKey(playerIn.getGameProfile().getId())) {
                 userIteration.put(playerIn.getGameProfile().getId(), 0);
                 i = 0;
-            } else if(userIteration.get(playerIn.getGameProfile().getId()) == 14) {
+            } else if(userIteration.get(playerIn.getGameProfile().getId()) == 13) {
                 userIteration.put(playerIn.getGameProfile().getId(), 0);
-                i = 14;
+                i = 13;
             } else {
                 i = userIteration.get(playerIn.getGameProfile().getId());
             }
             playerIn.sendMessage(new TextComponentString("Q: ").setStyle(new Style().setColor(TextFormatting.AQUA)).appendSibling(new TextComponentString(QUESTIONS[i]).setStyle(new Style().setColor(TextFormatting.GOLD))));
             playerIn.sendMessage(new TextComponentString("A: ").setStyle(new Style().setColor(TextFormatting.AQUA)).appendSibling(new TextComponentString("14").setStyle(new Style().setColor(TextFormatting.GREEN))));
-            if(i != 14) {
+            if(i != 13) {
                 userIteration.put(playerIn.getGameProfile().getId(), i + 1);
             }
         }

@@ -1,7 +1,9 @@
 package its_meow.skeppymod.client;
 
 import its_meow.skeppymod.SkeppyMod;
+import its_meow.skeppymod.client.renderer.entity.RenderMrSqueegy;
 import its_meow.skeppymod.client.renderer.tileentity.TileEntityRenderStatue;
+import its_meow.skeppymod.entity.EntityMrSqueegy;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -11,6 +13,7 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,10 +30,12 @@ public class SkeppyModClient {
         initModel(SkeppyMod.BLOCK_14, 0);
         initModel(SkeppyMod.BAGUETTE, 0);
         initModel(SkeppyMod.MUFFIN, 0);
+        initModel(SkeppyMod.SQUEEGY_BUCKET, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStatue.class, new TileEntityRenderStatue());
+        RenderingRegistry.registerEntityRenderingHandler(EntityMrSqueegy.class, RenderMrSqueegy::new);
     }
 
     @SubscribeEvent
