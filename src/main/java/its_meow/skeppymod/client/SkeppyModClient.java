@@ -25,6 +25,8 @@ public class SkeppyModClient {
     @SubscribeEvent
     public static void mre(ModelRegistryEvent event) {
         initModel(SkeppyMod.BLOCK_14, 0);
+        initModel(SkeppyMod.BAGUETTE, 0);
+        initModel(SkeppyMod.MUFFIN, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);

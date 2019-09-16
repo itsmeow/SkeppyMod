@@ -13,7 +13,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -84,7 +83,7 @@ public class Block14 extends Block {
                 player.sendStatusMessage(new TextComponentString("before you break me, put a6d in a bucket"), true);
             } else if(SkeppyMod.isA6D(player)) {
                 player.sendStatusMessage(new TextComponentString("a6d you better eat them all"), true);
-                player.addItemStackToInventory(new ItemStack(Items.BREAD, 64));
+                player.addItemStackToInventory(new ItemStack(SkeppyMod.BAGUETTE, 64));
             }
         }
         super.onBlockHarvested(worldIn, pos, state, player);
@@ -100,7 +99,7 @@ public class Block14 extends Block {
                 player.sendStatusMessage(new TextComponentString("hi bbh u muffin thank u for placing this block, put skeppy in a bucket next pls"), true);
             } else if(SkeppyMod.isA6D(player)) {
                 player.sendStatusMessage(new TextComponentString("a6d: eat the baguette or suffer"), true);
-                player.addItemStackToInventory(new ItemStack(Items.BREAD));
+                player.addItemStackToInventory(new ItemStack(SkeppyMod.BAGUETTE));
             }
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);

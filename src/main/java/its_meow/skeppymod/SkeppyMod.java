@@ -5,6 +5,7 @@ import java.util.UUID;
 import its_meow.skeppymod.block.Block14;
 import its_meow.skeppymod.block.BlockStatue;
 import its_meow.skeppymod.item.ItemBlockStatue;
+import its_meow.skeppymod.item.ItemEZFood;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -36,7 +37,8 @@ public class SkeppyMod {
         }};
     
     /* Item Instances */
-    
+    public static ItemEZFood BAGUETTE = new ItemEZFood("baguette", 8, 1, 128, false);
+    public static ItemEZFood MUFFIN = new ItemEZFood("muffin", 3, 3, 32, false);
     
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -55,7 +57,8 @@ public class SkeppyMod {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(new ItemBlock(BLOCK_14).setRegistryName(BLOCK_14.getRegistryName()),
-        new ItemBlockStatue(SKEPPY_STATUE), new ItemBlockStatue(BBH_STATUE), new ItemBlockStatue(A6D_STATUE));
+        new ItemBlockStatue(SKEPPY_STATUE), new ItemBlockStatue(BBH_STATUE), new ItemBlockStatue(A6D_STATUE),
+        BAGUETTE, MUFFIN);
     }
     
     /* Util */
