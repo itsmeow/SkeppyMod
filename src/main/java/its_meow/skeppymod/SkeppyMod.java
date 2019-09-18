@@ -47,6 +47,7 @@ public class SkeppyMod {
     public static ItemEZFood BAGUETTE = new ItemEZFood("baguette", 8, 1, 128, false);
     public static ItemEZFood MUFFIN = new ItemEZFood("muffin", 3, 3, 32, false);
     public static ItemSqueegyBucket SQUEEGY_BUCKET = new ItemSqueegyBucket();
+    public static Item MUFFIN_ON_A_STICK = new Item().setRegistryName(MODID, "muffin_on_a_stick").setTranslationKey("skeppymod.muffin_on_a_stick").setCreativeTab(SKEPPY_TAB);
     
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -68,7 +69,7 @@ public class SkeppyMod {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(new ItemBlock(BLOCK_14).setRegistryName(BLOCK_14.getRegistryName()),
         new ItemBlockStatue(SKEPPY_STATUE), new ItemBlockStatue(BBH_STATUE), new ItemBlockStatue(A6D_STATUE),
-        BAGUETTE, MUFFIN, SQUEEGY_BUCKET);
+        BAGUETTE, MUFFIN, SQUEEGY_BUCKET, MUFFIN_ON_A_STICK);
     }
     
     @SubscribeEvent

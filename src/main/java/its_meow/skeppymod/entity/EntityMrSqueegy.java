@@ -2,8 +2,11 @@ package its_meow.skeppymod.entity;
 
 import java.util.function.Supplier;
 
+import javax.annotation.Nullable;
+
 import its_meow.skeppymod.SkeppyMod;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
@@ -37,6 +40,11 @@ public class EntityMrSqueegy extends EntityCreature {
         this.setCustomNameTag("Mr. Squeegy");
         this.setAlwaysRenderNameTag(true);
         this.rand.nextLong();
+    }
+
+    @Override
+    public boolean shouldDismountInWater(Entity rider) {
+        return false;
     }
 
     protected void entityInit() {
@@ -114,7 +122,41 @@ public class EntityMrSqueegy extends EntityCreature {
     }
 
     public void travel(float strafe, float vertical, float forward) {
+        Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
+        if(this.isBeingRidden() && this.canBeSteered()) {
+            this.rotationYaw = entity.rotationYaw;
+            this.prevRotationYaw = this.rotationYaw;
+            this.rotationPitch = entity.rotationPitch * 0.5F;
+            this.setRotation(this.rotationYaw, this.rotationPitch);
+            this.renderYawOffset = this.rotationYaw;
+            this.rotationYawHead = this.rotationYaw;
+
+            if(this.canPassengerSteer()) {
+                float speed = 0.05F;
+                float f1 = MathHelper.sin(this.rotationYaw * 0.017453292F);
+                float f2 = MathHelper.cos(this.rotationYaw * 0.017453292F);
+                float f3 = MathHelper.sin(this.rotationPitch * 0.017453292F);
+                this.motionX += (double) (-speed * f1);
+                this.motionY += (double) (-speed * f3);
+                this.motionZ += (double) (speed * f2);
+                this.motionX *= 0.98F;
+                this.motionY *= 0.98F;
+                this.motionZ *= 0.98F;
+            } else {
+                this.motionX *= 0.9D;
+                this.motionY *= 0.9D;
+                this.motionZ *= 0.9D;
+            }
+        } else if(this.isBeingRidden()) {
+            this.motionX *= 0.8D;
+            this.motionY *= 0.8D;
+            this.motionZ *= 0.8D;
+        }
         this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+    }
+
+    @Override
+    public void fall(float distance, float damageMultiplier) {
     }
 
     public void setMovementVector(float randomMotionVecXIn, float randomMotionVecYIn, float randomMotionVecZIn) {
@@ -127,6 +169,11 @@ public class EntityMrSqueegy extends EntityCreature {
         return this.randomMotionVecX != 0.0F || this.randomMotionVecY != 0.0F || this.randomMotionVecZ != 0.0F;
     }
 
+    @Nullable
+    public Entity getControllingPassenger() {
+        return this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
+    }
+
     @Override
     protected boolean processInteract(EntityPlayer player, EnumHand hand) {
         if(hand == EnumHand.MAIN_HAND) {
@@ -134,9 +181,27 @@ public class EntityMrSqueegy extends EntityCreature {
                 player.getHeldItemMainhand().shrink(1);
                 player.addItemStackToInventory(new ItemStack(SkeppyMod.SQUEEGY_BUCKET));
                 this.setDead();
+            } else if(!super.processInteract(player, hand) && !this.isBeingRidden()) {
+                player.startRiding(this);
             }
         }
+
         return false;
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    public boolean canBeSteered() {
+        Entity entity = this.getControllingPassenger();
+
+        if(!(entity instanceof EntityPlayer)) {
+            return false;
+        } else {
+            EntityPlayer entityplayer = (EntityPlayer) entity;
+            return entityplayer.getHeldItemMainhand().getItem() == SkeppyMod.MUFFIN_ON_A_STICK || entityplayer.getHeldItemOffhand().getItem() == SkeppyMod.MUFFIN_ON_A_STICK;
+        }
     }
 
     static class AIMoveRandom extends EntityAIBase {
@@ -146,16 +211,17 @@ public class EntityMrSqueegy extends EntityCreature {
             this.sq = sq;
         }
 
-        /**
-         * Returns whether the EntityAIBase should begin execution.
-         */
+        @Override
         public boolean shouldExecute() {
-            return true;
+            return !sq.isBeingRidden() || !sq.canBeSteered();
         }
 
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
+        @Override
+        public boolean shouldContinueExecuting() {
+            return shouldExecute();
+        }
+
+        @Override
         public void updateTask() {
             int i = this.sq.getIdleTime();
 

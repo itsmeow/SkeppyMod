@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import its_meow.skeppymod.SkeppyMod;
 import its_meow.skeppymod.entity.EntityMrSqueegy;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
@@ -76,9 +77,6 @@ public class ItemSqueegyBucket extends Item {
         }
     }
 
-    /**
-     * Called when the equipped item is right clicked.
-     */
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 
@@ -115,10 +113,6 @@ public class ItemSqueegyBucket extends Item {
         }
     }
 
-    /**
-     * Spawns the creature specified by the egg's type in the location specified by
-     * the last three parameters. Parameters: world, entityID, x, y, z.
-     */
     @Nullable
     public static Entity spawnCreature(World worldIn, double x, double y, double z) {
         EntityLiving entity = new EntityMrSqueegy(worldIn);
@@ -131,6 +125,14 @@ public class ItemSqueegyBucket extends Item {
         worldIn.spawnEntity(entity);
         entity.playLivingSound();
         return entity;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add("Mr. Squeegy in a bucket... skeppy in a.. wait, don't try that! (it won't work i swear)");
+        tooltip.add("Place Mr Squeegy down and give him a right click with your hand- see what happens. Also consider grabbing a muffin on a stick to... persuade him");
+        tooltip.add("Also, DON'T PUNCH MR SQUEEGY. PUNCHING WILL RESULT IN HIS ANGER. YOU DO NOT WANT THAT.");
     }
 
 }
