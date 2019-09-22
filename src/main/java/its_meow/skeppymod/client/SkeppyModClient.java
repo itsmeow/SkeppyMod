@@ -33,6 +33,7 @@ public class SkeppyModClient {
         initModel(SkeppyMod.SQUEEGY_BUCKET, 0);
         initModel(SkeppyMod.MUFFIN_ON_A_STICK, 0);
         initModel(SkeppyMod.CRAFT_HOODIE_CHEST, 0);
+        initModel(SkeppyMod.CARTOON_HOODIE_CHEST, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);

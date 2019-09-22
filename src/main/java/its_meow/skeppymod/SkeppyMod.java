@@ -51,6 +51,7 @@ public class SkeppyMod {
     public static ItemSqueegyBucket SQUEEGY_BUCKET = new ItemSqueegyBucket();
     public static Item MUFFIN_ON_A_STICK = new Item().setRegistryName(MODID, "muffin_on_a_stick").setTranslationKey("skeppymod.muffin_on_a_stick").setCreativeTab(SKEPPY_TAB);
     public static ItemMerchArmor CRAFT_HOODIE_CHEST = new ItemMerchArmor("craft_hoodie_chest", "craft_hoodie", EntityEquipmentSlot.CHEST);
+    public static ItemMerchArmor CARTOON_HOODIE_CHEST = new ItemMerchArmor("cartoon_hoodie_chest", "cartoon_hoodie", EntityEquipmentSlot.CHEST);
     
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -72,7 +73,7 @@ public class SkeppyMod {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(new ItemBlock(BLOCK_14).setRegistryName(BLOCK_14.getRegistryName()),
         new ItemBlockStatue(SKEPPY_STATUE), new ItemBlockStatue(BBH_STATUE), new ItemBlockStatue(A6D_STATUE),
-        BAGUETTE, MUFFIN, SQUEEGY_BUCKET, MUFFIN_ON_A_STICK, CRAFT_HOODIE_CHEST);
+        BAGUETTE, MUFFIN, SQUEEGY_BUCKET, MUFFIN_ON_A_STICK, CRAFT_HOODIE_CHEST, CARTOON_HOODIE_CHEST);
     }
     
     @SubscribeEvent

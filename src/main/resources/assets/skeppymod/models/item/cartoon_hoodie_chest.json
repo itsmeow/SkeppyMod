@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "skeppymod:items/cartoon_hoodie_chest"
+  }
+}
