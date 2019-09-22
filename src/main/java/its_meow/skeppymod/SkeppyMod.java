@@ -62,7 +62,7 @@ public class SkeppyMod {
         GlStateManager.scale(0.85F, 0.95F, 1.02F);
         GlStateManager.translate(0, 0.03, 0);
     });
-    public static ItemMerchArmorColored LOGO_HOODIE_FRONT_CHEST_BLACK = new ItemMerchArmorColored("logo_hoodie_front_chest_black", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 40, 40, 40, "base_hoodie", "skeppy_logo_front", () -> () -> {
+    public static ItemMerchArmorColored LOGO_HOODIE_FRONT_CHEST_BLACK = new ItemMerchArmorColored("logo_hoodie_front_chest_black", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 30, 30, 30, "base_hoodie", "skeppy_logo_front", () -> () -> {
         GlStateManager.scale(0.85F, 0.95F, 1.02F);
         GlStateManager.translate(0, 0.03, 0);
     });
