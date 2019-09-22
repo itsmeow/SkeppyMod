@@ -2,6 +2,7 @@ package its_meow.skeppymod.client;
 
 import its_meow.skeppymod.SkeppyMod;
 import its_meow.skeppymod.client.renderer.entity.RenderMrSqueegy;
+import its_meow.skeppymod.client.renderer.tileentity.TileEntityItemRenderStatue;
 import its_meow.skeppymod.client.renderer.tileentity.TileEntityRenderStatue;
 import its_meow.skeppymod.entity.EntityMrSqueegy;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
@@ -34,9 +35,17 @@ public class SkeppyModClient {
         initModel(SkeppyMod.MUFFIN_ON_A_STICK, 0);
         initModel(SkeppyMod.CRAFT_HOODIE_CHEST, 0);
         initModel(SkeppyMod.CARTOON_HOODIE_CHEST, 0);
+        initModel(SkeppyMod.LOGO_HOODIE_FRONT_CHEST_BLUE, 0);
+        initModel(SkeppyMod.LOGO_HOODIE_FRONT_CHEST_BLACK, 0);
+        initModel(SkeppyMod.LOGO_HOODIE_FRONT_CHEST_GREY, 0);
+        initModel(SkeppyMod.LOGO_HOODIE_FRONT_CHEST_PINK, 0);
+        initModel(SkeppyMod.LOGO_HOODIE_FRONT_CHEST_WHITE, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);
+        Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE).setTileEntityItemStackRenderer(new TileEntityItemRenderStatue());
+        Item.getItemFromBlock(SkeppyMod.A6D_STATUE).setTileEntityItemStackRenderer(new TileEntityItemRenderStatue());
+        Item.getItemFromBlock(SkeppyMod.BBH_STATUE).setTileEntityItemStackRenderer(new TileEntityItemRenderStatue());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStatue.class, new TileEntityRenderStatue());
         RenderingRegistry.registerEntityRenderingHandler(EntityMrSqueegy.class, RenderMrSqueegy::new);
     }

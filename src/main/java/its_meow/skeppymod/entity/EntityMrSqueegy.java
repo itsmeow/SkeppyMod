@@ -24,6 +24,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMrSqueegy extends EntityCreature {
 
@@ -75,15 +77,9 @@ public class EntityMrSqueegy extends EntityCreature {
         return false;
     }
 
+    @SideOnly(Side.CLIENT)
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        if(!this.world.isRemote) {
-            this.motionX = (double) (this.randomMotionVecX);
-            this.motionY = (double) (this.randomMotionVecY);
-            this.motionZ = (double) (this.randomMotionVecZ);
-        }
-        this.renderYawOffset += (-((float) MathHelper.atan2(this.motionX, this.motionZ)) * (180F / (float) Math.PI) - this.renderYawOffset) * 0.1F;
-        this.rotationYaw = this.renderYawOffset;
         if(this.world.isRemote && this.ticksExisted % 600 == 0) {
             Supplier<Supplier<EntityPlayer>> playerS = () -> () -> {
                 return (EntityPlayer) Minecraft.getMinecraft().player;
@@ -99,10 +95,19 @@ public class EntityMrSqueegy extends EntityCreature {
             }
         }
     }
+    
+    
 
     @Override
     public void onUpdate() {
         super.onUpdate();
+        if(!this.world.isRemote) {
+            this.motionX = (double) (this.randomMotionVecX);
+            this.motionY = (double) (this.randomMotionVecY);
+            this.motionZ = (double) (this.randomMotionVecZ);
+        }
+        this.renderYawOffset += (-((float) MathHelper.atan2(this.motionX, this.motionZ)) * (180F / (float) Math.PI) - this.renderYawOffset) * 0.1F;
+        this.rotationYaw = this.renderYawOffset;
         if(this.getAttackTarget() != null && this.getAttackTarget().isDead) {
             this.setAttackTarget(null);
         }

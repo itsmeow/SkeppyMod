@@ -8,9 +8,11 @@ import its_meow.skeppymod.entity.EntityMrSqueegy;
 import its_meow.skeppymod.item.ItemBlockStatue;
 import its_meow.skeppymod.item.ItemEZFood;
 import its_meow.skeppymod.item.ItemMerchArmor;
+import its_meow.skeppymod.item.ItemMerchArmorColored;
 import its_meow.skeppymod.item.ItemSqueegyBucket;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -52,6 +54,26 @@ public class SkeppyMod {
     public static Item MUFFIN_ON_A_STICK = new Item().setRegistryName(MODID, "muffin_on_a_stick").setTranslationKey("skeppymod.muffin_on_a_stick").setCreativeTab(SKEPPY_TAB);
     public static ItemMerchArmor CRAFT_HOODIE_CHEST = new ItemMerchArmor("craft_hoodie_chest", "craft_hoodie", EntityEquipmentSlot.CHEST);
     public static ItemMerchArmor CARTOON_HOODIE_CHEST = new ItemMerchArmor("cartoon_hoodie_chest", "cartoon_hoodie", EntityEquipmentSlot.CHEST);
+    public static ItemMerchArmorColored LOGO_HOODIE_FRONT_CHEST_BLUE = new ItemMerchArmorColored("logo_hoodie_front_chest_blue", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 120, 173, 219, "base_hoodie", "skeppy_logo_front", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored LOGO_HOODIE_FRONT_CHEST_WHITE = new ItemMerchArmorColored("logo_hoodie_front_chest_white", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 250, 250, 250, "base_hoodie", "skeppy_logo_front", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored LOGO_HOODIE_FRONT_CHEST_BLACK = new ItemMerchArmorColored("logo_hoodie_front_chest_black", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 40, 40, 40, "base_hoodie", "skeppy_logo_front", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored LOGO_HOODIE_FRONT_CHEST_PINK = new ItemMerchArmorColored("logo_hoodie_front_chest_pink", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 226, 134, 177, "base_hoodie", "skeppy_logo_front", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored LOGO_HOODIE_FRONT_CHEST_GREY = new ItemMerchArmorColored("logo_hoodie_front_chest_grey", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 73, 73, 73, "base_hoodie", "skeppy_logo_front", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
     
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -73,12 +95,12 @@ public class SkeppyMod {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(new ItemBlock(BLOCK_14).setRegistryName(BLOCK_14.getRegistryName()),
         new ItemBlockStatue(SKEPPY_STATUE), new ItemBlockStatue(BBH_STATUE), new ItemBlockStatue(A6D_STATUE),
-        BAGUETTE, MUFFIN, SQUEEGY_BUCKET, MUFFIN_ON_A_STICK, CRAFT_HOODIE_CHEST, CARTOON_HOODIE_CHEST);
+        BAGUETTE, MUFFIN, SQUEEGY_BUCKET, MUFFIN_ON_A_STICK, CRAFT_HOODIE_CHEST, CARTOON_HOODIE_CHEST, LOGO_HOODIE_FRONT_CHEST_BLUE, LOGO_HOODIE_FRONT_CHEST_WHITE, LOGO_HOODIE_FRONT_CHEST_PINK, LOGO_HOODIE_FRONT_CHEST_BLACK, LOGO_HOODIE_FRONT_CHEST_GREY);
     }
     
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
-        event.getRegistry().register(EntityEntryBuilder.<EntityMrSqueegy>create().factory(EntityMrSqueegy::new).entity(EntityMrSqueegy.class).id(new ResourceLocation(MODID, "mrsqueegy"), modEntities++).name("skeppymod.mrsqueegy").tracker(128, 1, true).build());
+        event.getRegistry().register(EntityEntryBuilder.<EntityMrSqueegy>create().entity(EntityMrSqueegy.class).id(new ResourceLocation(MODID, "mrsqueegy"), modEntities++).name("skeppymod.mrsqueegy").tracker(128, 1, true).build());
     }
     
     /* Events */
