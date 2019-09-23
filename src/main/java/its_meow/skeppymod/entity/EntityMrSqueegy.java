@@ -95,8 +95,6 @@ public class EntityMrSqueegy extends EntityCreature {
             }
         }
     }
-    
-    
 
     @Override
     public void onUpdate() {
@@ -186,6 +184,9 @@ public class EntityMrSqueegy extends EntityCreature {
                 player.getHeldItemMainhand().shrink(1);
                 player.addItemStackToInventory(new ItemStack(SkeppyMod.SQUEEGY_BUCKET));
                 this.setDead();
+            } else if(this.getAttackTarget() == player && player.getHeldItemMainhand().getItem() == SkeppyMod.MUFFIN) {
+                player.getHeldItemMainhand().shrink(1);
+                this.setAttackTarget(null);
             } else if(!super.processInteract(player, hand) && !this.isBeingRidden()) {
                 player.startRiding(this);
             }

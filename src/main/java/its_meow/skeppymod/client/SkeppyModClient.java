@@ -83,6 +83,8 @@ public class SkeppyModClient implements ISidedProxy {
         initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_GREY, 0);
         initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_PINK, 0);
         initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_WHITE, 0);
+        initModel(SkeppyMod.SKEPPY_HOODIE_DOUBLE_SIDED_WHITE, 0);
+        initModel(SkeppyMod.SKEPPY_HOODIE_DOUBLE_SIDED_BLACK, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);
