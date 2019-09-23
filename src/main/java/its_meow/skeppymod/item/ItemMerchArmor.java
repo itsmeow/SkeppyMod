@@ -7,6 +7,7 @@ import its_meow.skeppymod.SkeppyMod;
 import its_meow.skeppymod.client.model.ModelBipedArmorLayer;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.init.Items;
@@ -53,6 +54,11 @@ public class ItemMerchArmor extends ItemArmor {
             mats.put(name, map);
         }
         return map;
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        return "skeppymod:textures/models/armor/empty_texture.png";
     }
 
     @Override

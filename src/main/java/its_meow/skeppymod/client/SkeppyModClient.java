@@ -8,6 +8,7 @@ import its_meow.skeppymod.client.renderer.entity.RenderMrSqueegy;
 import its_meow.skeppymod.client.renderer.tileentity.TileEntityItemRenderStatue;
 import its_meow.skeppymod.client.renderer.tileentity.TileEntityRenderStatue;
 import its_meow.skeppymod.entity.EntityMrSqueegy;
+import its_meow.skeppymod.item.ItemMerchArmor;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -15,6 +16,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -50,9 +52,11 @@ public class SkeppyModClient implements ISidedProxy {
     public static void input(InputEvent event) {
         boolean isKey = Keyboard.isKeyDown(hoodie_control.getKeyCode());
         if(isKey && !wasDownLastInput) {
-            hood_up = !hood_up;
-            Minecraft.getMinecraft().player.playSound(SoundEvents.UI_BUTTON_CLICK, 1F, 0.8F);
-            
+            if(Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemMerchArmor) {
+                hood_up = !hood_up;
+                Minecraft.getMinecraft().player.playSound(SoundEvents.UI_BUTTON_CLICK, 1F, 0.8F);
+            }
+
         }
         wasDownLastInput = isKey;
     }
@@ -74,6 +78,11 @@ public class SkeppyModClient implements ISidedProxy {
         initModel(SkeppyMod.SKEPPY_HOODIE_ARMS_CHEST_WHITE, 0);
         initModel(SkeppyMod.SKEPPY_HOODIE_ARMS_CHEST_BLACK, 0);
         initModel(SkeppyMod.SKEPPY_JOGGERS, 0);
+        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_BLUE, 0);
+        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_BLACK, 0);
+        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_GREY, 0);
+        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_PINK, 0);
+        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_WHITE, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);

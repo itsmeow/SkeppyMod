@@ -7,6 +7,7 @@ import its_meow.skeppymod.block.BlockStatue;
 import its_meow.skeppymod.entity.EntityMrSqueegy;
 import its_meow.skeppymod.item.ItemBlockStatue;
 import its_meow.skeppymod.item.ItemEZFood;
+import its_meow.skeppymod.item.ItemJoggers;
 import its_meow.skeppymod.item.ItemMerchArmor;
 import its_meow.skeppymod.item.ItemMerchArmorColored;
 import its_meow.skeppymod.item.ItemSqueegyBucket;
@@ -90,7 +91,28 @@ public class SkeppyMod {
     
     public static ItemMerchArmorColored SKEPPY_HOODIE_ARMS_CHEST_BLACK = new ItemMerchArmorColored("skeppy_hoodie_arms_chest_black", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 30, 30, 30, "base_hoodie", "skeppy_name_arms_black", "base_hood", () -> () -> {});
     
-    public static ItemMerchArmor SKEPPY_JOGGERS = new ItemMerchArmor("skeppy_joggers", "cartoon_hoodie", EntityEquipmentSlot.LEGS, "empty_texture");
+    public static ItemJoggers SKEPPY_JOGGERS = new ItemJoggers();
+    
+    public static ItemMerchArmorColored SKEPPY_TSHIRT_FRONT_BLUE = new ItemMerchArmorColored("skeppy_tshirt_front_blue", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 120, 173, 219, "base_tshirt", "skeppy_name_front", "empty_texture", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored SKEPPY_TSHIRT_FRONT_WHITE = new ItemMerchArmorColored("skeppy_tshirt_front_white", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 250, 250, 250, "base_tshirt", "skeppy_name_front", "empty_texture", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored SKEPPY_TSHIRT_FRONT_BLACK = new ItemMerchArmorColored("skeppy_tshirt_front_black", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 30, 30, 30, "base_tshirt", "skeppy_name_front", "empty_texture", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored SKEPPY_TSHIRT_FRONT_PINK = new ItemMerchArmorColored("skeppy_tshirt_front_pink", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 226, 134, 177, "base_tshirt", "skeppy_name_front", "empty_texture", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
+    public static ItemMerchArmorColored SKEPPY_TSHIRT_FRONT_GREY = new ItemMerchArmorColored("skeppy_tshirt_front_grey", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 73, 73, 73, "base_tshirt", "skeppy_name_front", "empty_texture", () -> () -> {
+        GlStateManager.scale(0.85F, 0.95F, 1.02F);
+        GlStateManager.translate(0, 0.03, 0);
+    });
     
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -113,7 +135,8 @@ public class SkeppyMod {
         event.getRegistry().registerAll(new ItemBlock(BLOCK_14).setRegistryName(BLOCK_14.getRegistryName()),
         new ItemBlockStatue(SKEPPY_STATUE), new ItemBlockStatue(BBH_STATUE), new ItemBlockStatue(A6D_STATUE),
         BAGUETTE, MUFFIN, SQUEEGY_BUCKET, MUFFIN_ON_A_STICK, CRAFT_HOODIE_CHEST, CARTOON_HOODIE_CHEST, SKEPPY_HOODIE_FRONT_CHEST_BLUE, SKEPPY_HOODIE_FRONT_CHEST_WHITE, SKEPPY_HOODIE_FRONT_CHEST_PINK, SKEPPY_HOODIE_FRONT_CHEST_BLACK, SKEPPY_HOODIE_FRONT_CHEST_GREY,
-        SKEPPY_HOODIE_ARMS_CHEST_WHITE, SKEPPY_HOODIE_ARMS_CHEST_BLACK, SKEPPY_JOGGERS);
+        SKEPPY_HOODIE_ARMS_CHEST_WHITE, SKEPPY_HOODIE_ARMS_CHEST_BLACK, SKEPPY_JOGGERS,
+        SKEPPY_TSHIRT_FRONT_BLUE, SKEPPY_TSHIRT_FRONT_WHITE, SKEPPY_TSHIRT_FRONT_PINK, SKEPPY_TSHIRT_FRONT_BLACK, SKEPPY_TSHIRT_FRONT_GREY);
     }
     
     @SubscribeEvent
