@@ -20,16 +20,16 @@ public class ItemMerchArmorColored extends ItemMerchArmor {
     public final String topTexture;
     public final Supplier<Runnable> gl;
 
-    public ItemMerchArmorColored(String name, EntityEquipmentSlot slot, int red, int green, int blue, String baseTex, String topTex, Supplier<Runnable> gl) {
-        this(name, getOrCreateMaterial(name), slot, red, green, blue, baseTex, topTex, gl);
+    public ItemMerchArmorColored(String name, EntityEquipmentSlot slot, int red, int green, int blue, String baseTex, String topTex, String hoodTex, Supplier<Runnable> gl) {
+        this(name, getOrCreateMaterial(name), slot, red, green, blue, baseTex, topTex, hoodTex, gl);
     }
 
-    public ItemMerchArmorColored(String name, String materialName, EntityEquipmentSlot slot, int red, int green, int blue, String baseTex, String topTex, Supplier<Runnable> gl) {
-        this(name, getOrCreateMaterial(materialName), slot, red, green, blue, baseTex, topTex, gl);
+    public ItemMerchArmorColored(String name, String materialName, EntityEquipmentSlot slot, int red, int green, int blue, String baseTex, String topTex, String hoodTex, Supplier<Runnable> gl) {
+        this(name, getOrCreateMaterial(materialName), slot, red, green, blue, baseTex, topTex, hoodTex, gl);
     }
 
-    public ItemMerchArmorColored(String name, ArmorMaterial mat, EntityEquipmentSlot slot, int red, int green, int blue, String baseTex, String topTex, Supplier<Runnable> gl) {
-        super(name, mat, slot);
+    public ItemMerchArmorColored(String name, ArmorMaterial mat, EntityEquipmentSlot slot, int red, int green, int blue, String baseTex, String topTex, String hoodTex, Supplier<Runnable> gl) {
+        super(name, mat, slot, hoodTex);
         this.red = red;
         this.green = green;
         this.blue = blue;

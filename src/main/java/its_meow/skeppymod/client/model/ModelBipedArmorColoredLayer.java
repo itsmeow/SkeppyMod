@@ -1,5 +1,6 @@
 package its_meow.skeppymod.client.model;
 
+import its_meow.skeppymod.client.SkeppyModClient;
 import its_meow.skeppymod.item.ItemMerchArmorColored;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -53,7 +54,16 @@ public class ModelBipedArmorColoredLayer extends ModelBipedArmorLayer {
                         this.bipedLeftArmwear.render(scale);
                         this.bipedRightArmwear.render(scale);
                         this.bipedBodyWear.render(scale);
-                        this.bipedHeadwear.render(scale);
+                        if(i == 0) {
+                            if(SkeppyModClient.hood_up && Minecraft.getMinecraft().player == player) {
+                                this.bipedHeadwear.render(scale);
+                            } else {
+                                Minecraft.getMinecraft().getTextureManager().bindTexture(hoodTex);
+                                this.bipedBodyWear.render(scale);
+                            }
+                        } else {
+                            this.bipedHeadwear.render(scale);
+                        }
                     }
                     GlStateManager.popMatrix();
                 }

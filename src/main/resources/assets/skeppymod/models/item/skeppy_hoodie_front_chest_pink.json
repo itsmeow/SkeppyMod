@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "skeppymod:items/logo_hoodie_front_chest_grey"
+    "layer0": "skeppymod:items/skeppy_hoodie_front_chest_pink"
   }
 }

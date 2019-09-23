@@ -25,22 +25,24 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemMerchArmor extends ItemArmor {
 
     protected static Map<String, ArmorMaterial> mats = new HashMap<String, ArmorMaterial>();
+    public final String hoodTex;
 
-    public ItemMerchArmor(String name, EntityEquipmentSlot slot) {
-        this(name, getOrCreateMaterial(name), slot);
+    public ItemMerchArmor(String name, EntityEquipmentSlot slot, String hoodTex) {
+        this(name, getOrCreateMaterial(name), slot, hoodTex);
     }
 
-    public ItemMerchArmor(String name, String materialName, EntityEquipmentSlot slot) {
-        this(name, getOrCreateMaterial(materialName), slot);
+    public ItemMerchArmor(String name, String materialName, EntityEquipmentSlot slot, String hoodTex) {
+        this(name, getOrCreateMaterial(materialName), slot, hoodTex);
     }
 
-    public ItemMerchArmor(String name, ArmorMaterial mat, EntityEquipmentSlot slot) {
+    public ItemMerchArmor(String name, ArmorMaterial mat, EntityEquipmentSlot slot, String hoodTex) {
         super(mat, -1, slot);
         this.setRegistryName(SkeppyMod.MODID, name);
         this.setTranslationKey("skeppymod." + name);
         this.setCreativeTab(SkeppyMod.SKEPPY_TAB);
         this.setMaxStackSize(1);
         this.canRepair = true;
+        this.hoodTex = hoodTex;
     }
 
     public static ArmorMaterial getOrCreateMaterial(String name) {

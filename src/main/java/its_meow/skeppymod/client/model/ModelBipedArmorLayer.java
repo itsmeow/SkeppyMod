@@ -1,5 +1,6 @@
 package its_meow.skeppymod.client.model;
 
+import its_meow.skeppymod.client.SkeppyModClient;
 import its_meow.skeppymod.item.ItemMerchArmor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -11,10 +12,12 @@ import net.minecraft.util.ResourceLocation;
 public class ModelBipedArmorLayer extends ModelPlayer {
 
     private final ResourceLocation texture;
+    protected final ResourceLocation hoodTex;
 
     public ModelBipedArmorLayer(AbstractClientPlayer player, ItemMerchArmor armor) {
         super(0F, player.getSkinType().equals("slim"));
         this.texture = new ResourceLocation("skeppymod:textures/models/armor/" + armor.getArmorMaterial().getName().replaceAll("skeppymod:", "") + "_layer_1" + "_" + player.getSkinType() + ".png");
+        this.hoodTex = new ResourceLocation("skeppymod:textures/models/armor/" + armor.hoodTex + ".png");
     }
 
     @Override
@@ -41,7 +44,12 @@ public class ModelBipedArmorLayer extends ModelPlayer {
                     this.bipedLeftArmwear.render(scale);
                     this.bipedRightArmwear.render(scale);
                     this.bipedBodyWear.render(scale);
-                    this.bipedHeadwear.render(scale);
+                    if(SkeppyModClient.hood_up && Minecraft.getMinecraft().player == player) {
+                        this.bipedHeadwear.render(scale);
+                    } else {
+                        Minecraft.getMinecraft().getTextureManager().bindTexture(hoodTex);
+                        this.bipedBodyWear.render(scale);
+                    }
                 }
                 GlStateManager.popMatrix();
                 GlStateManager.disableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
