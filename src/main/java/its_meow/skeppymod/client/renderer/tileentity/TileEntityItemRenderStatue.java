@@ -26,8 +26,8 @@ public class TileEntityItemRenderStatue extends TileEntityItemStackRenderer {
             Minecraft.getMinecraft().getTextureManager().bindTexture(name.equals("skeppy") ? SKEPPY_SKIN : (name.equals("badboyhalo") ? BBH_SKIN : A6D_SKIN));
             if(transform == TransformType.GUI) {
                 GlStateManager.enableLighting();
-                GlStateManager.scale(-0.98F, 0.98F, -0.98F);
-                GlStateManager.translate(-0.55F, 0.5F, -0.5F);
+                GlStateManager.scale(-0.5F, 0.5F, -0.5F);
+                GlStateManager.translate(-1.05F, 1.45F, -1F);
                 GlStateManager.rotate(90, -1, 0, 0);
                 GlStateManager.rotate(90, 4, 0, 1);
                 GlStateManager.rotate(180, 0, 1, 0);
