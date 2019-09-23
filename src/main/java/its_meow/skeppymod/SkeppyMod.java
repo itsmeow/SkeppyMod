@@ -17,6 +17,7 @@ import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -25,6 +26,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.fml.common.Mod;
@@ -133,6 +135,21 @@ public class SkeppyMod {
     public static ItemSkeppyBottle SKEPPY_BOTTLE_EMPTY = (ItemSkeppyBottle) new ItemSkeppyBottle().setCreativeTab(SKEPPY_TAB).setRegistryName(MODID, "skeppy_bottle_empty").setTranslationKey("skeppymod.skeppy_bottle_empty").setMaxStackSize(1);
     public static ItemFullSkeppyBottle SKEPPY_BOTTLE_FULL = (ItemFullSkeppyBottle) new ItemFullSkeppyBottle().setCreativeTab(SKEPPY_TAB).setRegistryName(MODID, "skeppy_bottle_full").setTranslationKey("skeppymod.skeppy_bottle_full").setMaxStackSize(1);
     
+    public static Item CHEESY_FRIES_EMPTY = new Item().setRegistryName(MODID, "cheesy_fries_empty").setTranslationKey("skeppymod.cheesy_fries_empty").setCreativeTab(SKEPPY_TAB).setMaxStackSize(1);
+    
+    public static ItemEZFood CHEESY_FRIES = (ItemEZFood) new ItemEZFood("cheesy_fries", 4, 1, 48, false) {
+        @Override
+        public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+            if(entityLiving instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) entityLiving;
+                player.inventory.addItemStackToInventory(new ItemStack(SkeppyMod.CHEESY_FRIES_EMPTY));
+            }
+            return super.onItemUseFinish(stack, worldIn, entityLiving);
+        }
+    }.setMaxStackSize(1);
+    
+    public static ItemEZFood THIN_CRUST_PIZZA = new ItemEZFood("thin_crust_pizza", 8, 2, 32, false);
+    
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
     public static BlockStatue SKEPPY_STATUE = new BlockStatue("skeppy");
@@ -157,7 +174,7 @@ public class SkeppyMod {
         SKEPPY_HOODIE_ARMS_CHEST_WHITE, SKEPPY_HOODIE_ARMS_CHEST_BLACK, SKEPPY_JOGGERS,
         SKEPPY_TSHIRT_FRONT_BLUE, SKEPPY_TSHIRT_FRONT_WHITE, SKEPPY_TSHIRT_FRONT_PINK, SKEPPY_TSHIRT_FRONT_BLACK, SKEPPY_TSHIRT_FRONT_GREY, SKEPPY_HOODIE_DOUBLE_SIDED_WHITE, SKEPPY_HOODIE_DOUBLE_SIDED_BLACK,
         SKEPPY_LONGSLEEVE_WHITE, SKEPPY_LONGSLEEVE_BLACK,
-        SKEPPY_LOGO_HOODIE_BLUE, SKEPPY_LOGO_HOODIE_PINK, SKEPPY_LOGO_HOODIE_WHITE, SKEPPY_LOGO_HOODIE_GREY, SKEPPY_BOTTLE_EMPTY, SKEPPY_BOTTLE_FULL);
+        SKEPPY_LOGO_HOODIE_BLUE, SKEPPY_LOGO_HOODIE_PINK, SKEPPY_LOGO_HOODIE_WHITE, SKEPPY_LOGO_HOODIE_GREY, SKEPPY_BOTTLE_EMPTY, SKEPPY_BOTTLE_FULL, CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA);
     }
 
     @SubscribeEvent
