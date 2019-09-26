@@ -1,7 +1,6 @@
 package its_meow.skeppymod.client.model;
 
 import its_meow.skeppymod.client.SkeppyModClient;
-import its_meow.skeppymod.item.ItemMerchArmor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
@@ -11,13 +10,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelBipedArmorLayer extends ModelPlayer {
 
-    private final ResourceLocation texture;
-    protected final ResourceLocation hoodTex;
+    public ResourceLocation texture;
+    public ResourceLocation hoodTex;
 
-    public ModelBipedArmorLayer(AbstractClientPlayer player, ItemMerchArmor armor) {
-        super(0F, player.getSkinType().equals("slim"));
-        this.texture = new ResourceLocation("skeppymod:textures/models/armor/" + armor.getArmorMaterial().getName().replaceAll("skeppymod:", "") + "_layer_1" + "_" + player.getSkinType() + ".png");
-        this.hoodTex = new ResourceLocation("skeppymod:textures/models/armor/" + armor.hoodTex + ".png");
+    public ModelBipedArmorLayer(boolean slim) {
+        super(0F, slim);
     }
 
     @Override

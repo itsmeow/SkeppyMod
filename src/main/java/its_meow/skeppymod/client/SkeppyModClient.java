@@ -4,6 +4,9 @@ import org.lwjgl.input.Keyboard;
 
 import its_meow.skeppymod.ISidedProxy;
 import its_meow.skeppymod.SkeppyMod;
+import its_meow.skeppymod.client.model.ModelBipedArmorColoredLayer;
+import its_meow.skeppymod.client.model.ModelBipedArmorLayer;
+import its_meow.skeppymod.client.model.ModelJoggers;
 import its_meow.skeppymod.client.renderer.entity.RenderMrSqueegy;
 import its_meow.skeppymod.client.renderer.tileentity.TileEntityItemRenderStatue;
 import its_meow.skeppymod.client.renderer.tileentity.TileEntityRenderStatue;
@@ -31,6 +34,13 @@ import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber(modid = SkeppyMod.MODID, value = Side.CLIENT)
 public class SkeppyModClient implements ISidedProxy {
+
+    public static final ModelBipedArmorLayer ARMOR_SLIM = new ModelBipedArmorLayer(true);
+    public static final ModelBipedArmorLayer ARMOR_DEFAULT = new ModelBipedArmorLayer(false);
+    public static final ModelBipedArmorColoredLayer COLOR_ARMOR_SLIM = new ModelBipedArmorColoredLayer(true);
+    public static final ModelBipedArmorColoredLayer COLOR_ARMOR_DEFAULT = new ModelBipedArmorColoredLayer(false);
+    public static final ModelJoggers JOGGERS_DEFAULT = new ModelJoggers(false);
+    public static final ModelJoggers JOGGERS_SLIM = new ModelJoggers(true);
 
     public static KeyBinding hoodie_control = null;
 
@@ -96,6 +106,10 @@ public class SkeppyModClient implements ISidedProxy {
         initModel(SkeppyMod.CHEESY_FRIES_EMPTY, 0);
         initModel(SkeppyMod.CHEESY_FRIES, 0);
         initModel(SkeppyMod.THIN_CRUST_PIZZA, 0);
+        initModel(SkeppyMod.PINECONE, 0);
+        initModel(SkeppyMod.DILL_PICKLE_CHIPS, 0);
+        initModel(SkeppyMod.DILL_PICKLE_CHIPS_EMPTY, 0);
+        initModel(SkeppyMod.JAPANESE_SYMBOL, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);

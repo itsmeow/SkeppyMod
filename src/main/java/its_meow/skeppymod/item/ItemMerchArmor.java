@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import its_meow.skeppymod.SkeppyMod;
+import its_meow.skeppymod.client.SkeppyModClient;
 import its_meow.skeppymod.client.model.ModelBipedArmorLayer;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
@@ -15,6 +16,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteractSpecific;
 import net.minecraftforge.fml.common.Mod;
@@ -26,7 +28,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemMerchArmor extends ItemArmor {
 
     protected static Map<String, ArmorMaterial> mats = new HashMap<String, ArmorMaterial>();
-    public final String hoodTex;
+
+    public final ResourceLocation texture_slim;
+    public final ResourceLocation texture_default;
+    public final ResourceLocation hoodTex;
 
     public ItemMerchArmor(String name, EntityEquipmentSlot slot, String hoodTex) {
         this(name, getOrCreateMaterial(name), slot, hoodTex);
@@ -43,7 +48,9 @@ public class ItemMerchArmor extends ItemArmor {
         this.setCreativeTab(SkeppyMod.SKEPPY_TAB);
         this.setMaxStackSize(1);
         this.canRepair = true;
-        this.hoodTex = hoodTex;
+        this.hoodTex = new ResourceLocation("skeppymod:textures/models/armor/" + hoodTex + ".png");
+        this.texture_slim = new ResourceLocation("skeppymod:textures/models/armor/" + this.getArmorMaterial().getName().replaceAll("skeppymod:", "") + "_layer_1" + "_" + "slim" + ".png");
+        this.texture_default = new ResourceLocation("skeppymod:textures/models/armor/" + this.getArmorMaterial().getName().replaceAll("skeppymod:", "") + "_layer_1" + "_" + "default" + ".png");
     }
 
     public static ArmorMaterial getOrCreateMaterial(String name) {
@@ -65,7 +72,11 @@ public class ItemMerchArmor extends ItemArmor {
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if(entityLiving instanceof AbstractClientPlayer) {
-            return new ModelBipedArmorLayer((AbstractClientPlayer) entityLiving, this);
+            boolean isSlim = ((AbstractClientPlayer) entityLiving).getSkinType().equals("slim");
+            ModelBipedArmorLayer model = isSlim ? SkeppyModClient.ARMOR_SLIM : SkeppyModClient.ARMOR_DEFAULT;
+            model.hoodTex = this.hoodTex;
+            model.texture = isSlim ? this.texture_slim : this.texture_default;
+            return model;
         }
         return null;
     }

@@ -1,7 +1,8 @@
 package its_meow.skeppymod.client.model;
 
+import java.util.function.Supplier;
+
 import its_meow.skeppymod.client.SkeppyModClient;
-import its_meow.skeppymod.item.ItemMerchArmorColored;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -10,15 +11,16 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelBipedArmorColoredLayer extends ModelBipedArmorLayer {
 
-    public final ItemMerchArmorColored armor;
-    public final ResourceLocation baseTex;
-    public final ResourceLocation topTex;
+    public ResourceLocation baseTex;
+    public ResourceLocation topTex;
+    public int red;
+    public int green;
+    public int blue;
+    public Supplier<Runnable> gl;
 
-    public ModelBipedArmorColoredLayer(AbstractClientPlayer player, ItemMerchArmorColored armor) {
-        super(player, armor);
-        this.armor = armor;
-        this.baseTex = new ResourceLocation("skeppymod", "textures/models/armor/" + armor.baseTexture + "_" + player.getSkinType() + ".png");
-        this.topTex = new ResourceLocation("skeppymod", "textures/models/armor/" + armor.topTexture + "_" + player.getSkinType() + ".png");
+    public ModelBipedArmorColoredLayer(boolean slim) {
+        super(slim);
+        
     }
 
     @Override
@@ -33,10 +35,10 @@ public class ModelBipedArmorColoredLayer extends ModelBipedArmorLayer {
                     {
                         if(i == 0) {
                             Minecraft.getMinecraft().getTextureManager().bindTexture(baseTex);
-                            GlStateManager.color(((float) armor.red) / 255F, ((float) armor.green) / 255F, ((float) armor.blue) / 255F);
+                            GlStateManager.color(((float) red) / 255F, ((float) green) / 255F, ((float) blue) / 255F);
                         } else {
                             Minecraft.getMinecraft().getTextureManager().bindTexture(topTex);
-                            armor.gl.get().run();
+                            gl.get().run();
                             GlStateManager.color(1F, 1F, 1F);
                         }
                         if(entityIn.isSneaking()) {

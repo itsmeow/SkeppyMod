@@ -1,0 +1,20 @@
+{
+    "japanese_symbol": {
+        "replace": false,
+        "category": "player",
+        "sounds": [
+        	{
+            	"name": "skeppymod:japanese_symbol"
+            }
+        ]
+    },
+    "andioop": {
+        "replace": false,
+        "category": "player",
+        "sounds": [
+        	{
+            	"name": "skeppymod:andioop"
+            }
+        ]
+    }
+}
