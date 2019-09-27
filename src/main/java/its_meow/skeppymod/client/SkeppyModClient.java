@@ -1,5 +1,9 @@
 package its_meow.skeppymod.client;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+
 import org.lwjgl.input.Keyboard;
 
 import its_meow.skeppymod.ISidedProxy;
@@ -15,6 +19,7 @@ import its_meow.skeppymod.item.ItemMerchArmor;
 import its_meow.skeppymod.network.CPacketSetHoodStatus;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -22,6 +27,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -31,10 +37,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber(modid = SkeppyMod.MODID, value = Side.CLIENT)
 public class SkeppyModClient implements ISidedProxy {
+
+    private static final SoundType[] SOUND_TYPES = new SoundType[] {SoundType.ANVIL,SoundType.CLOTH,SoundType.GLASS,SoundType.GROUND,SoundType.LADDER,SoundType.METAL,SoundType.PLANT,SoundType.SAND,SoundType.SLIME,SoundType.SNOW,SoundType.STONE,SoundType.WOOD};
+
+    private static final HashMap<SoundType, SoundEvent> ORIGINAL_SOUNDS = new HashMap<SoundType, SoundEvent>();
 
     public static final ModelBipedArmorLayer ARMOR_SLIM = new ModelBipedArmorLayer(true);
     public static final ModelBipedArmorLayer ARMOR_DEFAULT = new ModelBipedArmorLayer(false);
@@ -51,10 +63,61 @@ public class SkeppyModClient implements ISidedProxy {
     public static ModelResourceLocation A6D_STATUE_MLR = new ModelResourceLocation("skeppymod:statue_a6d", "inventory");
     public static ModelResourceLocation BBH_STATUE_MLR = new ModelResourceLocation("skeppymod:statue_badboyhalo", "inventory");
 
+    public static Field stepSoundF = null;
+    
+    private static boolean flopLastTick = false;
+    private static boolean flop = false;
+
     @Override
     public void init(FMLInitializationEvent event) {
         hoodie_control = new KeyBinding("key.skeppymod.hoodie_control", Keyboard.KEY_H, "key.skeppymod.category");
         ClientRegistry.registerKeyBinding(hoodie_control);
+        try {
+            stepSoundF = SoundType.class.getDeclaredField("stepSound");
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(stepSoundF, stepSoundF.getModifiers() & ~Modifier.FINAL);
+            stepSoundF.setAccessible(true);
+        } catch(NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SubscribeEvent
+    public static void clientTick(ClientTickEvent event) {
+        if(event.phase == Phase.START) {
+            if(Minecraft.getMinecraft().player != null) {
+                flop = Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == SkeppyMod.FLIP_FLOPS;
+                if(flop && !flopLastTick) {
+                    flipFlopIfy();
+                } else if(!flop && flopLastTick) {
+                    resetSounds();
+                }
+                
+                flopLastTick = flop;
+            }
+        }
+    }
+
+    private static void resetSounds() {
+        for(SoundType type : SOUND_TYPES) {
+            try {
+                stepSoundF.set(type, ORIGINAL_SOUNDS.get(type));
+            } catch(IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void flipFlopIfy() {
+        for(SoundType type : SOUND_TYPES) {
+            ORIGINAL_SOUNDS.put(type, type.getStepSound());
+            try {
+                stepSoundF.set(type, SkeppyMod.FLIP_FLOP_SOUND);
+            } catch(IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static boolean wasDownLastInput = false;
@@ -112,6 +175,7 @@ public class SkeppyModClient implements ISidedProxy {
         initModel(SkeppyMod.DILL_PICKLE_CHIPS, 0);
         initModel(SkeppyMod.DILL_PICKLE_CHIPS_EMPTY, 0);
         initModel(SkeppyMod.JAPANESE_SYMBOL, 0);
+        initModel(SkeppyMod.FLIP_FLOPS, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);

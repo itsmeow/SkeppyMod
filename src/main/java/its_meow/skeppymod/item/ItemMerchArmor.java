@@ -1,6 +1,7 @@
 package its_meow.skeppymod.item;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import its_meow.skeppymod.SkeppyMod;
@@ -8,6 +9,7 @@ import its_meow.skeppymod.client.SkeppyModClient;
 import its_meow.skeppymod.client.model.ModelBipedArmorLayer;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
@@ -17,6 +19,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteractSpecific;
 import net.minecraftforge.fml.common.Mod;
@@ -89,6 +92,12 @@ public class ItemMerchArmor extends ItemArmor {
                 event.setCanceled(true);
             }
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add("go to skeppyshop.com and get this merch or die tmr");
     }
 
 }

@@ -261,6 +261,8 @@ public class SkeppyMod {
             tooltip.add("Right click for fun :)");
         }
     }.setRegistryName(MODID, "japanese_symbol").setTranslationKey("skeppymod.japanese_symbol").setCreativeTab(SKEPPY_TAB);
+    
+    public static ItemMerchArmor FLIP_FLOPS = new ItemMerchArmor("flip_flops", "flip_flops", EntityEquipmentSlot.FEET, "empty_texture");
 
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -271,6 +273,7 @@ public class SkeppyMod {
     /* Sound Events */
     public static final SoundEvent JAPANESE_SYMBOL_SOUND = new SoundEvent(new ResourceLocation(MODID, "japanese_symbol"));
     public static final SoundEvent AND_I_OOP_SOUND = new SoundEvent(new ResourceLocation(MODID, "andioop"));
+    public static final SoundEvent FLIP_FLOP_SOUND = new SoundEvent(new ResourceLocation(MODID, "flip"));
 
     /* Misc */
     public static final HashMap<UUID, Boolean> HOODS = new HashMap<UUID, Boolean>();
@@ -283,6 +286,7 @@ public class SkeppyMod {
     public static void registerSounds(final RegistryEvent.Register<SoundEvent> event) {
         event.getRegistry().register(JAPANESE_SYMBOL_SOUND.setRegistryName(new ResourceLocation(MODID, "japanese_symbol")));
         event.getRegistry().register(AND_I_OOP_SOUND.setRegistryName(new ResourceLocation(MODID, "andioop")));
+        event.getRegistry().register(FLIP_FLOP_SOUND.setRegistryName(new ResourceLocation(MODID, "flip")));
     }
 
     @SubscribeEvent
@@ -300,7 +304,7 @@ public class SkeppyMod {
         SKEPPY_TSHIRT_FRONT_BLUE, SKEPPY_TSHIRT_FRONT_WHITE, SKEPPY_TSHIRT_FRONT_PINK, SKEPPY_TSHIRT_FRONT_BLACK, SKEPPY_TSHIRT_FRONT_GREY, SKEPPY_HOODIE_DOUBLE_SIDED_WHITE, SKEPPY_HOODIE_DOUBLE_SIDED_BLACK,
         SKEPPY_LONGSLEEVE_WHITE, SKEPPY_LONGSLEEVE_BLACK,
         SKEPPY_LOGO_HOODIE_BLUE, SKEPPY_LOGO_HOODIE_PINK, SKEPPY_LOGO_HOODIE_WHITE, SKEPPY_LOGO_HOODIE_GREY, SKEPPY_BOTTLE_EMPTY, SKEPPY_BOTTLE_FULL,
-        CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA, PINECONE, DILL_PICKLE_CHIPS, DILL_PICKLE_CHIPS_EMPTY, JAPANESE_SYMBOL);
+        CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA, PINECONE, DILL_PICKLE_CHIPS, DILL_PICKLE_CHIPS_EMPTY, JAPANESE_SYMBOL, FLIP_FLOPS);
     }
 
     @SubscribeEvent
