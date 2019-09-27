@@ -12,6 +12,7 @@ import its_meow.skeppymod.client.renderer.tileentity.TileEntityItemRenderStatue;
 import its_meow.skeppymod.client.renderer.tileentity.TileEntityRenderStatue;
 import its_meow.skeppymod.entity.EntityMrSqueegy;
 import its_meow.skeppymod.item.ItemMerchArmor;
+import its_meow.skeppymod.network.CPacketSetHoodStatus;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -65,6 +66,7 @@ public class SkeppyModClient implements ISidedProxy {
             if(Minecraft.getMinecraft().player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemMerchArmor) {
                 hood_up = !hood_up;
                 Minecraft.getMinecraft().player.playSound(SoundEvents.UI_BUTTON_CLICK, 1F, 0.8F);
+                SkeppyMod.NETWORK_INSTANCE.sendToServer(new CPacketSetHoodStatus(hood_up));
             }
 
         }

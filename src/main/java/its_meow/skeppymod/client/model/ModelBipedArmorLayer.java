@@ -1,5 +1,6 @@
 package its_meow.skeppymod.client.model;
 
+import its_meow.skeppymod.SkeppyMod;
 import its_meow.skeppymod.client.SkeppyModClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -41,7 +42,7 @@ public class ModelBipedArmorLayer extends ModelPlayer {
                     this.bipedLeftArmwear.render(scale);
                     this.bipedRightArmwear.render(scale);
                     this.bipedBodyWear.render(scale);
-                    if(SkeppyModClient.hood_up && Minecraft.getMinecraft().player == player) {
+                    if((SkeppyModClient.hood_up && Minecraft.getMinecraft().player == player) || (Minecraft.getMinecraft().player != player && SkeppyMod.HOODS.getOrDefault(player.getGameProfile().getId(), true))) {
                         this.bipedHeadwear.render(scale);
                     } else {
                         Minecraft.getMinecraft().getTextureManager().bindTexture(hoodTex);

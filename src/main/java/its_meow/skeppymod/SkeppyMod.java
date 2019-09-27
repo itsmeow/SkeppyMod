@@ -1,5 +1,6 @@
 package its_meow.skeppymod;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +16,8 @@ import its_meow.skeppymod.item.ItemMerchArmor;
 import its_meow.skeppymod.item.ItemMerchArmorColored;
 import its_meow.skeppymod.item.ItemSkeppyBottle;
 import its_meow.skeppymod.item.ItemSqueegyBucket;
+import its_meow.skeppymod.network.CPacketSetHoodStatus;
+import its_meow.skeppymod.network.SPacketSetClientHoodStatus;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
@@ -45,6 +48,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -54,28 +58,20 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber(modid = SkeppyMod.MODID)
 @Mod(modid = SkeppyMod.MODID, name = SkeppyMod.NAME, version = SkeppyMod.VERSION)
 public class SkeppyMod {
-
-    @SidedProxy(clientSide = "its_meow.skeppymod.client.SkeppyModClient", serverSide = "its_meow.skeppymod.DummyProxy")
-    public static ISidedProxy proxy;
-
-    @EventHandler
-    public static void init(FMLInitializationEvent event) {
-        proxy.init(event);
-    }
-
-    @EventHandler
-    public static void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandF());
-    }
 
     /* Constants */
     public static final String MODID = "skeppymod";
@@ -90,6 +86,28 @@ public class SkeppyMod {
             return new ItemStack(Item.getItemFromBlock(BLOCK_14));
         }
     };
+
+    @SidedProxy(clientSide = "its_meow.skeppymod.client.SkeppyModClient", serverSide = "its_meow.skeppymod.DummyProxy")
+    public static ISidedProxy proxy;
+
+    public static final SimpleNetworkWrapper NETWORK_INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
+    public static int packets = 0;
+
+    @EventHandler
+    public static void preinit(FMLPreInitializationEvent event) {
+        NETWORK_INSTANCE.registerMessage(CPacketSetHoodStatus.class, CPacketSetHoodStatus.class, packets++, Side.SERVER);
+        NETWORK_INSTANCE.registerMessage(SPacketSetClientHoodStatus.class, SPacketSetClientHoodStatus.class, packets++, Side.CLIENT);
+    }
+
+    @EventHandler
+    public static void init(FMLInitializationEvent event) {
+        proxy.init(event);
+    }
+
+    @EventHandler
+    public static void serverStarting(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandF());
+    }
 
     /* Item Instances */
     public static ItemEZFood BAGUETTE = new ItemEZFood("baguette", 8, 1, 128, false);
@@ -235,7 +253,7 @@ public class SkeppyMod {
             return super.onItemUseFinish(stack, worldIn, entityLiving);
         }
     }.setMaxStackSize(1);
-    
+
     public static Item JAPANESE_SYMBOL = new Item() {
         @Override
         public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
@@ -249,15 +267,18 @@ public class SkeppyMod {
     public static BlockStatue SKEPPY_STATUE = new BlockStatue("skeppy");
     public static BlockStatue BBH_STATUE = new BlockStatue("badboyhalo");
     public static BlockStatue A6D_STATUE = new BlockStatue("a6d");
-    
+
     /* Sound Events */
     public static final SoundEvent JAPANESE_SYMBOL_SOUND = new SoundEvent(new ResourceLocation(MODID, "japanese_symbol"));
     public static final SoundEvent AND_I_OOP_SOUND = new SoundEvent(new ResourceLocation(MODID, "andioop"));
 
+    /* Misc */
+    public static final HashMap<UUID, Boolean> HOODS = new HashMap<UUID, Boolean>();
+
     /* Registry */
 
     private static int modEntities = 0;
-    
+
     @SubscribeEvent
     public static void registerSounds(final RegistryEvent.Register<SoundEvent> event) {
         event.getRegistry().register(JAPANESE_SYMBOL_SOUND.setRegistryName(new ResourceLocation(MODID, "japanese_symbol")));
@@ -306,7 +327,7 @@ public class SkeppyMod {
             }
         }
     }
-    
+
     @SubscribeEvent
     public static void onItemDrop(ItemTossEvent event) {
         if(event.getEntityItem().getItem().getItem() == SkeppyMod.SKEPPY_BOTTLE_FULL || event.getEntityItem().getItem().getItem() == SkeppyMod.SKEPPY_BOTTLE_EMPTY) {
@@ -314,11 +335,41 @@ public class SkeppyMod {
             event.getPlayer().world.playSound(null, event.getPlayer().getPosition(), AND_I_OOP_SOUND, SoundCategory.PLAYERS, 1, 1);
         }
     }
-    
+
     @SubscribeEvent
     public static void onRightClick(PlayerInteractEvent event) {
         if(!event.getItemStack().isEmpty() && event.getItemStack().getItem() == JAPANESE_SYMBOL) {
             event.getWorld().playSound(null, event.getEntityPlayer().getPosition(), JAPANESE_SYMBOL_SOUND, SoundCategory.PLAYERS, 1, 1);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+        if(event.player instanceof EntityPlayerMP) {
+            for(EntityPlayer player : DimensionManager.getWorld(event.toDim).playerEntities) {
+                if(player instanceof EntityPlayerMP) {
+                    EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                    boolean isOn = HOODS.getOrDefault(playerMP.getGameProfile().getId(), true);
+                    boolean isOn2 = HOODS.getOrDefault(event.player.getGameProfile().getId(), true);
+                    NETWORK_INSTANCE.sendTo(new SPacketSetClientHoodStatus(playerMP.getGameProfile().getId(), isOn), (EntityPlayerMP) event.player);
+                    NETWORK_INSTANCE.sendTo(new SPacketSetClientHoodStatus(event.player.getGameProfile().getId(), isOn2), (EntityPlayerMP) playerMP);
+                }
+            }
+        }
+    }
+    
+    @SubscribeEvent
+    public static void onPlayerConnect(PlayerEvent.PlayerLoggedInEvent event) {
+        if(event.player instanceof EntityPlayerMP) {
+            for(EntityPlayer player : event.player.world.playerEntities) {
+                if(player instanceof EntityPlayerMP) {
+                    EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                    boolean isOn = HOODS.getOrDefault(playerMP.getGameProfile().getId(), true);
+                    boolean isOn2 = HOODS.getOrDefault(event.player.getGameProfile().getId(), true);
+                    NETWORK_INSTANCE.sendTo(new SPacketSetClientHoodStatus(playerMP.getGameProfile().getId(), isOn), (EntityPlayerMP) event.player);
+                    NETWORK_INSTANCE.sendTo(new SPacketSetClientHoodStatus(event.player.getGameProfile().getId(), isOn2), (EntityPlayerMP) playerMP);
+                }
+            }
         }
     }
 
