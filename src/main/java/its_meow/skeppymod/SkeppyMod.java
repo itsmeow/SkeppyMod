@@ -263,6 +263,20 @@ public class SkeppyMod {
     }.setRegistryName(MODID, "japanese_symbol").setTranslationKey("skeppymod.japanese_symbol").setCreativeTab(SKEPPY_TAB);
     
     public static ItemMerchArmor FLIP_FLOPS = new ItemMerchArmor("flip_flops", "flip_flops", EntityEquipmentSlot.FEET, "empty_texture");
+    
+    public static Item SPAGHETTIOS_EMPTY = new Item().setRegistryName(MODID, "spaghettios_empty").setTranslationKey("skeppymod.spaghettios_empty").setCreativeTab(SKEPPY_TAB).setMaxStackSize(1);
+
+    public static ItemEZFood SPAGHETTIOS = (ItemEZFood) new ItemEZFood("spaghettios", 8, 2, 64, false) {
+        @Override
+        public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+            if(entityLiving instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) entityLiving;
+                player.inventory.addItemStackToInventory(new ItemStack(SkeppyMod.SPAGHETTIOS_EMPTY));
+                player.world.playSound(null, player.getPosition(), UH_OH_SPAGHETTIO_SOUND, SoundCategory.PLAYERS, 3, 1);
+            }
+            return super.onItemUseFinish(stack, worldIn, entityLiving);
+        }
+    }.setMaxStackSize(1);
 
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -274,6 +288,7 @@ public class SkeppyMod {
     public static final SoundEvent JAPANESE_SYMBOL_SOUND = new SoundEvent(new ResourceLocation(MODID, "japanese_symbol"));
     public static final SoundEvent AND_I_OOP_SOUND = new SoundEvent(new ResourceLocation(MODID, "andioop"));
     public static final SoundEvent FLIP_FLOP_SOUND = new SoundEvent(new ResourceLocation(MODID, "flip"));
+    public static final SoundEvent UH_OH_SPAGHETTIO_SOUND = new SoundEvent(new ResourceLocation(MODID, "uhohspaghettio"));
 
     /* Misc */
     public static final HashMap<UUID, Boolean> HOODS = new HashMap<UUID, Boolean>();
@@ -287,6 +302,7 @@ public class SkeppyMod {
         event.getRegistry().register(JAPANESE_SYMBOL_SOUND.setRegistryName(new ResourceLocation(MODID, "japanese_symbol")));
         event.getRegistry().register(AND_I_OOP_SOUND.setRegistryName(new ResourceLocation(MODID, "andioop")));
         event.getRegistry().register(FLIP_FLOP_SOUND.setRegistryName(new ResourceLocation(MODID, "flip")));
+        event.getRegistry().register(UH_OH_SPAGHETTIO_SOUND.setRegistryName(new ResourceLocation(MODID, "uhohspaghettio")));
     }
 
     @SubscribeEvent
@@ -304,7 +320,7 @@ public class SkeppyMod {
         SKEPPY_TSHIRT_FRONT_BLUE, SKEPPY_TSHIRT_FRONT_WHITE, SKEPPY_TSHIRT_FRONT_PINK, SKEPPY_TSHIRT_FRONT_BLACK, SKEPPY_TSHIRT_FRONT_GREY, SKEPPY_HOODIE_DOUBLE_SIDED_WHITE, SKEPPY_HOODIE_DOUBLE_SIDED_BLACK,
         SKEPPY_LONGSLEEVE_WHITE, SKEPPY_LONGSLEEVE_BLACK,
         SKEPPY_LOGO_HOODIE_BLUE, SKEPPY_LOGO_HOODIE_PINK, SKEPPY_LOGO_HOODIE_WHITE, SKEPPY_LOGO_HOODIE_GREY, SKEPPY_BOTTLE_EMPTY, SKEPPY_BOTTLE_FULL,
-        CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA, PINECONE, DILL_PICKLE_CHIPS, DILL_PICKLE_CHIPS_EMPTY, JAPANESE_SYMBOL, FLIP_FLOPS);
+        CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA, PINECONE, DILL_PICKLE_CHIPS, DILL_PICKLE_CHIPS_EMPTY, JAPANESE_SYMBOL, FLIP_FLOPS, SPAGHETTIOS, SPAGHETTIOS_EMPTY);
     }
 
     @SubscribeEvent

@@ -176,6 +176,8 @@ public class SkeppyModClient implements ISidedProxy {
         initModel(SkeppyMod.DILL_PICKLE_CHIPS_EMPTY, 0);
         initModel(SkeppyMod.JAPANESE_SYMBOL, 0);
         initModel(SkeppyMod.FLIP_FLOPS, 0);
+        initModel(SkeppyMod.SPAGHETTIOS, 0);
+        initModel(SkeppyMod.SPAGHETTIOS_EMPTY, 0);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);
