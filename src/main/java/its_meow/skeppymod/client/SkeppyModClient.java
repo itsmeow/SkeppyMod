@@ -139,45 +139,16 @@ public class SkeppyModClient implements ISidedProxy {
     @SubscribeEvent
     public static void mre(ModelRegistryEvent event) {
         initModel(SkeppyMod.BLOCK_14, 0);
-        initModel(SkeppyMod.BAGUETTE, 0);
-        initModel(SkeppyMod.MUFFIN, 0);
-        initModel(SkeppyMod.SQUEEGY_BUCKET, 0);
-        initModel(SkeppyMod.MUFFIN_ON_A_STICK, 0);
-        initModel(SkeppyMod.CRAFT_HOODIE_CHEST, 0);
-        initModel(SkeppyMod.CARTOON_HOODIE_CHEST, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_BLUE, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_BLACK, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_GREY, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_PINK, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_WHITE, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_ARMS_CHEST_WHITE, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_ARMS_CHEST_BLACK, 0);
-        initModel(SkeppyMod.SKEPPY_JOGGERS, 0);
-        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_BLUE, 0);
-        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_BLACK, 0);
-        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_GREY, 0);
-        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_PINK, 0);
-        initModel(SkeppyMod.SKEPPY_TSHIRT_FRONT_WHITE, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_DOUBLE_SIDED_WHITE, 0);
-        initModel(SkeppyMod.SKEPPY_HOODIE_DOUBLE_SIDED_BLACK, 0);
-        initModel(SkeppyMod.SKEPPY_LONGSLEEVE_WHITE, 0);
-        initModel(SkeppyMod.SKEPPY_LONGSLEEVE_BLACK, 0);
-        initModel(SkeppyMod.SKEPPY_LOGO_HOODIE_BLUE, 0);
-        initModel(SkeppyMod.SKEPPY_LOGO_HOODIE_GREY, 0);
-        initModel(SkeppyMod.SKEPPY_LOGO_HOODIE_PINK, 0);
-        initModel(SkeppyMod.SKEPPY_LOGO_HOODIE_WHITE, 0);
-        initModel(SkeppyMod.SKEPPY_BOTTLE_EMPTY, 0);
-        initModel(SkeppyMod.SKEPPY_BOTTLE_FULL, 0);
-        initModel(SkeppyMod.CHEESY_FRIES_EMPTY, 0);
-        initModel(SkeppyMod.CHEESY_FRIES, 0);
-        initModel(SkeppyMod.THIN_CRUST_PIZZA, 0);
-        initModel(SkeppyMod.PINECONE, 0);
-        initModel(SkeppyMod.DILL_PICKLE_CHIPS, 0);
-        initModel(SkeppyMod.DILL_PICKLE_CHIPS_EMPTY, 0);
-        initModel(SkeppyMod.JAPANESE_SYMBOL, 0);
-        initModel(SkeppyMod.FLIP_FLOPS, 0);
-        initModel(SkeppyMod.SPAGHETTIOS, 0);
-        initModel(SkeppyMod.SPAGHETTIOS_EMPTY, 0);
+        initModel(SkeppyMod.BAGUETTE, SkeppyMod.MUFFIN, SkeppyMod.SQUEEGY_BUCKET, SkeppyMod.MUFFIN_ON_A_STICK, SkeppyMod.CRAFT_HOODIE_CHEST, SkeppyMod.CARTOON_HOODIE_CHEST, SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_BLUE, 
+        SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_BLACK, SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_GREY, SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_PINK, 
+        SkeppyMod.SKEPPY_HOODIE_FRONT_CHEST_WHITE, SkeppyMod.SKEPPY_HOODIE_ARMS_CHEST_WHITE, SkeppyMod.SKEPPY_HOODIE_ARMS_CHEST_BLACK, 
+        SkeppyMod.SKEPPY_JOGGERS, SkeppyMod.SKEPPY_TSHIRT_FRONT_BLUE, SkeppyMod.SKEPPY_TSHIRT_FRONT_BLACK, SkeppyMod.SKEPPY_TSHIRT_FRONT_GREY, 
+        SkeppyMod.SKEPPY_TSHIRT_FRONT_PINK, SkeppyMod.SKEPPY_TSHIRT_FRONT_WHITE, SkeppyMod.SKEPPY_HOODIE_DOUBLE_SIDED_WHITE, 
+        SkeppyMod.SKEPPY_HOODIE_DOUBLE_SIDED_BLACK, SkeppyMod.SKEPPY_LONGSLEEVE_WHITE, SkeppyMod.SKEPPY_LONGSLEEVE_BLACK, SkeppyMod.SKEPPY_LOGO_HOODIE_BLUE, 
+        SkeppyMod.SKEPPY_LOGO_HOODIE_GREY, SkeppyMod.SKEPPY_LOGO_HOODIE_PINK, SkeppyMod.SKEPPY_LOGO_HOODIE_WHITE, SkeppyMod.SKEPPY_BOTTLE_EMPTY, 
+        SkeppyMod.SKEPPY_BOTTLE_FULL, SkeppyMod.CHEESY_FRIES_EMPTY, SkeppyMod.CHEESY_FRIES, SkeppyMod.THIN_CRUST_PIZZA, SkeppyMod.PINECONE, 
+        SkeppyMod.DILL_PICKLE_CHIPS, SkeppyMod.DILL_PICKLE_CHIPS_EMPTY, SkeppyMod.JAPANESE_SYMBOL, SkeppyMod.FLIP_FLOPS, SkeppyMod.SPAGHETTIOS, 
+        SkeppyMod.SPAGHETTIOS_EMPTY, SkeppyMod.JIF, SkeppyMod.JIF_EMPTY);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);
@@ -204,6 +175,12 @@ public class SkeppyModClient implements ISidedProxy {
 
     public static void initModel(Block block, int meta) {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), meta, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+    }
+    
+    public static void initModel(Item... items) {
+        for(Item item : items) {
+            initModel(item, 0);
+        }
     }
 
 }

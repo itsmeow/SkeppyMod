@@ -10,10 +10,12 @@ import its_meow.skeppymod.command.CommandF;
 import its_meow.skeppymod.entity.EntityMrSqueegy;
 import its_meow.skeppymod.item.ItemBlockStatue;
 import its_meow.skeppymod.item.ItemEZFood;
+import its_meow.skeppymod.item.ItemEZFoodEmpty;
 import its_meow.skeppymod.item.ItemFullSkeppyBottle;
 import its_meow.skeppymod.item.ItemJoggers;
 import its_meow.skeppymod.item.ItemMerchArmor;
 import its_meow.skeppymod.item.ItemMerchArmorColored;
+import its_meow.skeppymod.item.ItemSimpleNamed;
 import its_meow.skeppymod.item.ItemSkeppyBottle;
 import its_meow.skeppymod.item.ItemSqueegyBucket;
 import its_meow.skeppymod.network.CPacketSetHoodStatus;
@@ -51,6 +53,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.world.BlockEvent;
@@ -113,7 +116,7 @@ public class SkeppyMod {
     public static ItemEZFood BAGUETTE = new ItemEZFood("baguette", 8, 1, 128, false);
     public static ItemEZFood MUFFIN = new ItemEZFood("muffin", 3, 3, 32, false);
     public static ItemSqueegyBucket SQUEEGY_BUCKET = new ItemSqueegyBucket();
-    public static Item MUFFIN_ON_A_STICK = new Item().setRegistryName(MODID, "muffin_on_a_stick").setTranslationKey("skeppymod.muffin_on_a_stick").setCreativeTab(SKEPPY_TAB).setMaxStackSize(1);
+    public static Item MUFFIN_ON_A_STICK = new ItemSimpleNamed("muffin_on_a_stick").setMaxStackSize(1);
     public static ItemMerchArmor CRAFT_HOODIE_CHEST = new ItemMerchArmor("craft_hoodie_chest", "craft_hoodie", EntityEquipmentSlot.CHEST, "blue_hood");
     public static ItemMerchArmor CARTOON_HOODIE_CHEST = new ItemMerchArmor("cartoon_hoodie_chest", "cartoon_hoodie", EntityEquipmentSlot.CHEST, "blue_hood");
     public static ItemMerchArmorColored SKEPPY_HOODIE_FRONT_CHEST_BLUE = new ItemMerchArmorColored("skeppy_hoodie_front_chest_blue", "cartoon_hoodie", EntityEquipmentSlot.CHEST, 120, 173, 219, "base_hoodie", "skeppy_name_front", "base_hood", () -> () -> {
@@ -190,7 +193,7 @@ public class SkeppyMod {
     public static ItemSkeppyBottle SKEPPY_BOTTLE_EMPTY = (ItemSkeppyBottle) new ItemSkeppyBottle().setCreativeTab(SKEPPY_TAB).setRegistryName(MODID, "skeppy_bottle_empty").setTranslationKey("skeppymod.skeppy_bottle_empty").setMaxStackSize(1);
     public static ItemFullSkeppyBottle SKEPPY_BOTTLE_FULL = (ItemFullSkeppyBottle) new ItemFullSkeppyBottle().setCreativeTab(SKEPPY_TAB).setRegistryName(MODID, "skeppy_bottle_full").setTranslationKey("skeppymod.skeppy_bottle_full").setMaxStackSize(1);
 
-    public static Item CHEESY_FRIES_EMPTY = new Item().setRegistryName(MODID, "cheesy_fries_empty").setTranslationKey("skeppymod.cheesy_fries_empty").setCreativeTab(SKEPPY_TAB).setMaxStackSize(1);
+    public static Item CHEESY_FRIES_EMPTY = new ItemSimpleNamed("cheesy_fries_empty").setMaxStackSize(1);
 
     public static ItemEZFood CHEESY_FRIES = (ItemEZFood) new ItemEZFood("cheesy_fries", 4, 1, 48, false) {
         @Override
@@ -205,7 +208,7 @@ public class SkeppyMod {
 
     public static ItemEZFood THIN_CRUST_PIZZA = new ItemEZFood("thin_crust_pizza", 8, 2, 32, false);
 
-    public static Item PINECONE = new Item() {
+    public static Item PINECONE = new ItemSimpleNamed("pinecone") {
         public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             Block block = iblockstate.getBlock();
@@ -239,44 +242,38 @@ public class SkeppyMod {
             }
             return true;
         }
-    }.setRegistryName(MODID, "pinecone").setTranslationKey("skeppymod.pinecone").setCreativeTab(SKEPPY_TAB);
+    };
 
-    public static Item DILL_PICKLE_CHIPS_EMPTY = new Item().setRegistryName(MODID, "dill_pickle_chips_empty").setTranslationKey("skeppymod.dill_pickle_chips_empty").setCreativeTab(SKEPPY_TAB).setMaxStackSize(1);
+    public static Item DILL_PICKLE_CHIPS_EMPTY = new ItemSimpleNamed("dill_pickle_chips_empty").setMaxStackSize(1);
 
-    public static ItemEZFood DILL_PICKLE_CHIPS = (ItemEZFood) new ItemEZFood("dill_pickle_chips", 3, 0, 16, false) {
-        @Override
-        public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-            if(entityLiving instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) entityLiving;
-                player.inventory.addItemStackToInventory(new ItemStack(SkeppyMod.DILL_PICKLE_CHIPS_EMPTY));
-            }
-            return super.onItemUseFinish(stack, worldIn, entityLiving);
-        }
-    }.setMaxStackSize(1);
+    public static ItemEZFood DILL_PICKLE_CHIPS = (ItemEZFood) new ItemEZFoodEmpty("dill_pickle_chips", 3, 0, 16, false, DILL_PICKLE_CHIPS_EMPTY).setMaxStackSize(1);
 
-    public static Item JAPANESE_SYMBOL = new Item() {
+    public static Item JAPANESE_SYMBOL = new ItemSimpleNamed("japanese_symbol") {
         @Override
         public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
             super.addInformation(stack, worldIn, tooltip, flagIn);
             tooltip.add("Right click for fun :)");
         }
-    }.setRegistryName(MODID, "japanese_symbol").setTranslationKey("skeppymod.japanese_symbol").setCreativeTab(SKEPPY_TAB);
+    };
     
     public static ItemMerchArmor FLIP_FLOPS = new ItemMerchArmor("flip_flops", "flip_flops", EntityEquipmentSlot.FEET, "empty_texture");
     
-    public static Item SPAGHETTIOS_EMPTY = new Item().setRegistryName(MODID, "spaghettios_empty").setTranslationKey("skeppymod.spaghettios_empty").setCreativeTab(SKEPPY_TAB).setMaxStackSize(1);
+    public static Item SPAGHETTIOS_EMPTY = new ItemSimpleNamed("spaghettios_empty").setMaxStackSize(1);
 
-    public static ItemEZFood SPAGHETTIOS = (ItemEZFood) new ItemEZFood("spaghettios", 8, 2, 64, false) {
+    public static ItemEZFood SPAGHETTIOS = (ItemEZFood) new ItemEZFoodEmpty("spaghettios", 8, 2, 64, false, SkeppyMod.SPAGHETTIOS_EMPTY) {
         @Override
         public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
             if(entityLiving instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entityLiving;
-                player.inventory.addItemStackToInventory(new ItemStack(SkeppyMod.SPAGHETTIOS_EMPTY));
                 player.world.playSound(null, player.getPosition(), UH_OH_SPAGHETTIO_SOUND, SoundCategory.PLAYERS, 3, 1);
             }
             return super.onItemUseFinish(stack, worldIn, entityLiving);
         }
     }.setMaxStackSize(1);
+    
+    public static Item JIF_EMPTY = new ItemSimpleNamed("jif_empty").setMaxStackSize(1);
+
+    public static ItemEZFood JIF = (ItemEZFood) new ItemEZFoodEmpty("jif", 5, 1, 32, false, JIF_EMPTY).setMaxStackSize(1);
 
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -289,6 +286,7 @@ public class SkeppyMod {
     public static final SoundEvent AND_I_OOP_SOUND = new SoundEvent(new ResourceLocation(MODID, "andioop"));
     public static final SoundEvent FLIP_FLOP_SOUND = new SoundEvent(new ResourceLocation(MODID, "flip"));
     public static final SoundEvent UH_OH_SPAGHETTIO_SOUND = new SoundEvent(new ResourceLocation(MODID, "uhohspaghettio"));
+    public static final SoundEvent I_WAS_TESTING_SOUND = new SoundEvent(new ResourceLocation(MODID, "i_was_testing"));
 
     /* Misc */
     public static final HashMap<UUID, Boolean> HOODS = new HashMap<UUID, Boolean>();
@@ -303,6 +301,7 @@ public class SkeppyMod {
         event.getRegistry().register(AND_I_OOP_SOUND.setRegistryName(new ResourceLocation(MODID, "andioop")));
         event.getRegistry().register(FLIP_FLOP_SOUND.setRegistryName(new ResourceLocation(MODID, "flip")));
         event.getRegistry().register(UH_OH_SPAGHETTIO_SOUND.setRegistryName(new ResourceLocation(MODID, "uhohspaghettio")));
+        event.getRegistry().register(I_WAS_TESTING_SOUND.setRegistryName(new ResourceLocation(MODID, "i_was_testing")));
     }
 
     @SubscribeEvent
@@ -320,7 +319,8 @@ public class SkeppyMod {
         SKEPPY_TSHIRT_FRONT_BLUE, SKEPPY_TSHIRT_FRONT_WHITE, SKEPPY_TSHIRT_FRONT_PINK, SKEPPY_TSHIRT_FRONT_BLACK, SKEPPY_TSHIRT_FRONT_GREY, SKEPPY_HOODIE_DOUBLE_SIDED_WHITE, SKEPPY_HOODIE_DOUBLE_SIDED_BLACK,
         SKEPPY_LONGSLEEVE_WHITE, SKEPPY_LONGSLEEVE_BLACK,
         SKEPPY_LOGO_HOODIE_BLUE, SKEPPY_LOGO_HOODIE_PINK, SKEPPY_LOGO_HOODIE_WHITE, SKEPPY_LOGO_HOODIE_GREY, SKEPPY_BOTTLE_EMPTY, SKEPPY_BOTTLE_FULL,
-        CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA, PINECONE, DILL_PICKLE_CHIPS, DILL_PICKLE_CHIPS_EMPTY, JAPANESE_SYMBOL, FLIP_FLOPS, SPAGHETTIOS, SPAGHETTIOS_EMPTY);
+        CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA, PINECONE, DILL_PICKLE_CHIPS, DILL_PICKLE_CHIPS_EMPTY, JAPANESE_SYMBOL, FLIP_FLOPS, SPAGHETTIOS, SPAGHETTIOS_EMPTY,
+        JIF, JIF_EMPTY);
     }
 
     @SubscribeEvent
@@ -390,6 +390,14 @@ public class SkeppyMod {
                     NETWORK_INSTANCE.sendTo(new SPacketSetClientHoodStatus(event.player.getGameProfile().getId(), isOn2), (EntityPlayerMP) playerMP);
                 }
             }
+        }
+    }
+    
+    @SubscribeEvent
+    public static void onDeath(LivingDeathEvent event) {
+        if(event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            player.world.playSound(null, player.getPosition(), I_WAS_TESTING_SOUND, SoundCategory.PLAYERS, 1, 1);
         }
     }
 

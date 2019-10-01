@@ -37,5 +37,14 @@
             	"name": "skeppymod:uhohspaghettio"
             }
         ]
+    },
+    "i_was_testing": {
+        "replace": false,
+        "category": "player",
+        "sounds": [
+        	{
+            	"name": "skeppymod:i_was_testing"
+            }
+        ]
     }
 }
