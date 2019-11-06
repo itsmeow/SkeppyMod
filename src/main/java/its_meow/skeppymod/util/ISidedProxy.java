@@ -1,4 +1,4 @@
-package its_meow.skeppymod;
+package its_meow.skeppymod.util;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 

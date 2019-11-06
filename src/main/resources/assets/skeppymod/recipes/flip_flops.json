@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "minecraft:leather_boots",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:shears"
+        },
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:flip_flops",
+        "count": 1,
+        "data": 0
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "minecraft:shears"
+        },
+        {
+        	"item": "minecraft:leaves",
+        	"data": 1
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:pinecone",
+        "count": 1,
+        "data": 0
+    }
+}

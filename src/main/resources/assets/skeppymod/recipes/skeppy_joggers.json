@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "minecraft:leather_leggings",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:dye",
+        	"data": 15
+        },
+        {
+        	"item": "minecraft:dye",
+        	"data": 0
+        },
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:skeppy_joggers",
+        "count": 1,
+        "data": 0
+    }
+}

@@ -25,6 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSqueegyBucket extends Item {
 
@@ -128,6 +130,7 @@ public class ItemSqueegyBucket extends Item {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add("Mr. Squeegy in a bucket... skeppy in a.. wait, don't try that! (it won't work i swear)");

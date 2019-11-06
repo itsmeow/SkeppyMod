@@ -52,8 +52,8 @@ public class ItemMerchArmor extends ItemArmor {
         this.setMaxStackSize(1);
         this.canRepair = true;
         this.hoodTex = new ResourceLocation("skeppymod:textures/models/armor/" + hoodTex + ".png");
-        this.texture_slim = new ResourceLocation("skeppymod:textures/models/armor/" + this.getArmorMaterial().getName().replaceAll("skeppymod:", "") + "_layer_1" + "_" + "slim" + ".png");
-        this.texture_default = new ResourceLocation("skeppymod:textures/models/armor/" + this.getArmorMaterial().getName().replaceAll("skeppymod:", "") + "_layer_1" + "_" + "default" + ".png");
+        this.texture_slim = new ResourceLocation("skeppymod:textures/models/armor/" + this.getArmorMaterial().name.replaceAll("skeppymod:", "") + "_layer_1" + "_" + "slim" + ".png");
+        this.texture_default = new ResourceLocation("skeppymod:textures/models/armor/" + this.getArmorMaterial().name.replaceAll("skeppymod:", "") + "_layer_1" + "_" + "default" + ".png");
     }
 
     public static ArmorMaterial getOrCreateMaterial(String name) {
@@ -95,6 +95,7 @@ public class ItemMerchArmor extends ItemArmor {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add("go to skeppyshop.com and get this merch or die tmr");

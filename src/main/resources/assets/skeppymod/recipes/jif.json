@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "skeppymod:pinecone"
+        },
+        {
+        	"item": "minecraft:glass_bottle"
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:jif",
+        "count": 1,
+        "data": 0
+    }
+}

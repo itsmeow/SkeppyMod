@@ -26,8 +26,16 @@ minecraft {
 	replace "@VERSION@", "${project.mod_version}"
 }
 
-dependencies {
+repositories {
+    maven {
+        name = "JEI"
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+}
 
+dependencies {
+    deobfProvided "mezz.jei:jei_${project.mc_version}:${project.jei_version}:api"
+    runtime "mezz.jei:jei_${project.mc_version}:${project.jei_version}"
 }
 
 processResources {
@@ -42,4 +50,12 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+
+jar {
+     manifest.mainAttributes(
+            "Implementation-Title": archivesBaseName,
+            "Implementation-Version": project.version,
+            "FMLAT": "skeppymod_at.cfg")
 }

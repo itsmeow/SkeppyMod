@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "minecraft:wheat",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:dye",
+        	"data": 11
+        },
+        {
+        	"item": "minecraft:beef",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:porkchop",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:dye",
+        	"data": 1
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:thin_crust_pizza",
+        "count": 1,
+        "data": 0
+    }
+}

@@ -21,6 +21,7 @@ import its_meow.skeppymod.item.ItemSqueegyBucket;
 import its_meow.skeppymod.network.CPacketSetHoodStatus;
 import its_meow.skeppymod.network.SPacketSetClientHoodStatus;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
+import its_meow.skeppymod.util.ISidedProxy;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOldLeaf;
@@ -51,12 +52,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -71,6 +75,7 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(modid = SkeppyMod.MODID)
 @Mod(modid = SkeppyMod.MODID, name = SkeppyMod.NAME, version = SkeppyMod.VERSION)
@@ -86,11 +91,11 @@ public class SkeppyMod {
     public static final CreativeTabs SKEPPY_TAB = new CreativeTabs("skeppy_tab") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(Item.getItemFromBlock(BLOCK_14));
+            return new ItemStack(SKEPPY_FACE);
         }
     };
 
-    @SidedProxy(clientSide = "its_meow.skeppymod.client.SkeppyModClient", serverSide = "its_meow.skeppymod.DummyProxy")
+    @SidedProxy(clientSide = "its_meow.skeppymod.client.SkeppyModClient", serverSide = "its_meow.skeppymod.util.DummyProxy")
     public static ISidedProxy proxy;
 
     public static final SimpleNetworkWrapper NETWORK_INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -195,16 +200,7 @@ public class SkeppyMod {
 
     public static Item CHEESY_FRIES_EMPTY = new ItemSimpleNamed("cheesy_fries_empty").setMaxStackSize(1);
 
-    public static ItemEZFood CHEESY_FRIES = (ItemEZFood) new ItemEZFood("cheesy_fries", 4, 1, 48, false) {
-        @Override
-        public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-            if(entityLiving instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) entityLiving;
-                player.inventory.addItemStackToInventory(new ItemStack(SkeppyMod.CHEESY_FRIES_EMPTY));
-            }
-            return super.onItemUseFinish(stack, worldIn, entityLiving);
-        }
-    }.setMaxStackSize(1);
+    public static ItemEZFoodEmpty CHEESY_FRIES = (ItemEZFoodEmpty) new ItemEZFoodEmpty("cheesy_fries", 4, 1, 48, false, SkeppyMod.CHEESY_FRIES_EMPTY).setMaxStackSize(1);
 
     public static ItemEZFood THIN_CRUST_PIZZA = new ItemEZFood("thin_crust_pizza", 8, 2, 32, false);
 
@@ -246,10 +242,11 @@ public class SkeppyMod {
 
     public static Item DILL_PICKLE_CHIPS_EMPTY = new ItemSimpleNamed("dill_pickle_chips_empty").setMaxStackSize(1);
 
-    public static ItemEZFood DILL_PICKLE_CHIPS = (ItemEZFood) new ItemEZFoodEmpty("dill_pickle_chips", 3, 0, 16, false, DILL_PICKLE_CHIPS_EMPTY).setMaxStackSize(1);
+    public static ItemEZFoodEmpty DILL_PICKLE_CHIPS = (ItemEZFoodEmpty) new ItemEZFoodEmpty("dill_pickle_chips", 3, 0, 16, false, DILL_PICKLE_CHIPS_EMPTY).setMaxStackSize(1);
 
     public static Item JAPANESE_SYMBOL = new ItemSimpleNamed("japanese_symbol") {
         @Override
+        @SideOnly(Side.CLIENT)
         public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
             super.addInformation(stack, worldIn, tooltip, flagIn);
             tooltip.add("Right click for fun :)");
@@ -260,7 +257,7 @@ public class SkeppyMod {
     
     public static Item SPAGHETTIOS_EMPTY = new ItemSimpleNamed("spaghettios_empty").setMaxStackSize(1);
 
-    public static ItemEZFood SPAGHETTIOS = (ItemEZFood) new ItemEZFoodEmpty("spaghettios", 8, 2, 64, false, SkeppyMod.SPAGHETTIOS_EMPTY) {
+    public static ItemEZFoodEmpty SPAGHETTIOS = (ItemEZFoodEmpty) new ItemEZFoodEmpty("spaghettios", 8, 2, 64, false, SkeppyMod.SPAGHETTIOS_EMPTY) {
         @Override
         public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
             if(entityLiving instanceof EntityPlayer) {
@@ -274,6 +271,8 @@ public class SkeppyMod {
     public static Item JIF_EMPTY = new ItemSimpleNamed("jif_empty").setMaxStackSize(1);
 
     public static ItemEZFood JIF = (ItemEZFood) new ItemEZFoodEmpty("jif", 5, 1, 32, false, JIF_EMPTY).setMaxStackSize(1);
+    
+    public static ItemSimpleNamed SKEPPY_FACE = new ItemSimpleNamed("skeppy_face");
 
     /* Block Instances */
     public static Block14 BLOCK_14 = new Block14();
@@ -320,7 +319,7 @@ public class SkeppyMod {
         SKEPPY_LONGSLEEVE_WHITE, SKEPPY_LONGSLEEVE_BLACK,
         SKEPPY_LOGO_HOODIE_BLUE, SKEPPY_LOGO_HOODIE_PINK, SKEPPY_LOGO_HOODIE_WHITE, SKEPPY_LOGO_HOODIE_GREY, SKEPPY_BOTTLE_EMPTY, SKEPPY_BOTTLE_FULL,
         CHEESY_FRIES, CHEESY_FRIES_EMPTY, THIN_CRUST_PIZZA, PINECONE, DILL_PICKLE_CHIPS, DILL_PICKLE_CHIPS_EMPTY, JAPANESE_SYMBOL, FLIP_FLOPS, SPAGHETTIOS, SPAGHETTIOS_EMPTY,
-        JIF, JIF_EMPTY);
+        JIF, JIF_EMPTY, SKEPPY_FACE);
     }
 
     @SubscribeEvent
@@ -332,7 +331,7 @@ public class SkeppyMod {
 
     @SubscribeEvent
     public static void onInteract(EntityInteract event) {
-        if(event.getEntity() instanceof EntityPlayer && !event.getEntityPlayer().world.isRemote) {
+        if(Configuration.enable_bucket_kill && event.getEntity() instanceof EntityPlayer && event.getTarget() instanceof EntityPlayer && !event.getEntityPlayer().world.isRemote) {
             if(event.getEntityPlayer().getHeldItemMainhand().getItem() == Items.BUCKET) {
                 event.getTarget().attackEntityFrom(new EntityDamageSource("bucket", event.getEntityPlayer()).setDamageAllowedInCreativeMode().setDamageBypassesArmor().setDamageIsAbsolute(), 2000F);
             }
@@ -395,7 +394,7 @@ public class SkeppyMod {
     
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
-        if(event.getEntityLiving() instanceof EntityPlayer) {
+        if(Configuration.enable_i_was_testing && event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             player.world.playSound(null, player.getPosition(), I_WAS_TESTING_SOUND, SoundCategory.PLAYERS, 1, 1);
         }
@@ -413,6 +412,29 @@ public class SkeppyMod {
 
     public static boolean isBBH(EntityPlayer player) {
         return player.getGameProfile().getId() == BBH_UUID;
+    }
+    
+    @Config(modid = MODID)
+    public static class Configuration {
+        @Config.Comment("Enables/disables killing players by right clicking with a bucket")
+        public static boolean enable_bucket_kill = true;
+        
+        @Config.Comment("Enables/disables playing \"I was testing\" when a player dies")
+        public static boolean enable_i_was_testing = true;
+        
+        @Config.Comment("Enables/disables Mr Squeegy saying uh oh spaghettio in chat when targeting you")
+        public static boolean enable_uh_oh_spaghettio_mr_squeegy = true;
+        
+        @Config.Comment("OP permission level required to use /f, 0 is none")
+        @Config.RangeInt(min = 0, max = 4)
+        public static int command_f_permission_level = 4;
+    }
+    
+    @SubscribeEvent
+    public static void onConfigChanged(ConfigChangedEvent event) {
+        if(event.getModID().equals(MODID)) {
+            ConfigManager.sync(event.getModID(), Config.Type.INSTANCE);
+        }
     }
 
 }

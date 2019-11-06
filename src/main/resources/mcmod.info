@@ -2,11 +2,10 @@
 {
   "modid": "skeppymod",
   "name": "Skeppy Mod",
-  "description": "A mod. It does things. Related to Skeppy.",
+  "description": "A mod that adds many features related to Skeppy and his channel.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
+  "url": "https://www.curseforge.com/minecraft/mc-mods/skeppy-mod",
   "authorList": ["its_meow"],
   "credits": "its_meow: for making this mod! Skeppy: for being hilarious and epic, BadBoyHalo: for being an adorable muffin, a6d: for being an epic baguette (and also probably being the most sane of the trio)",
   "logoFile": "skeppyface.png",

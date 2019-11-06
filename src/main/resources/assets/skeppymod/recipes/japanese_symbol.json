@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "y c",
+        "yyc",
+        " c "
+    ],
+    "key":
+    {
+        "y":
+        {
+        	"item": "minecraft:dye",
+        	"data": 11
+        },
+        "c":
+        {
+        	"item": "minecraft:dye",
+        	"data": 6
+        }
+    },
+    "result":
+    {
+        "item": "skeppymod:japanese_symbol",
+        "count": 1,
+        "data": 0
+    }
+}

@@ -118,7 +118,9 @@ public class EntityMrSqueegy extends EntityCreature {
             if(this.dataManager.get(ATTACK_TICK) == 0 && this.getAttackTarget() != null) {
                 EntityLightningBolt l = new EntityLightningBolt(this.world, this.getAttackTarget().posX, this.getAttackTarget().posY, this.getAttackTarget().posZ, false);
                 this.world.spawnEntity(l);
-                this.getAttackTarget().sendMessage(new TextComponentString("uh oh spaghettio"));
+                if(SkeppyMod.Configuration.enable_uh_oh_spaghettio_mr_squeegy) {
+                    this.getAttackTarget().sendMessage(new TextComponentString("uh oh spaghettio"));
+                }
             }
         }
         this.bolt = this.rand.nextLong();

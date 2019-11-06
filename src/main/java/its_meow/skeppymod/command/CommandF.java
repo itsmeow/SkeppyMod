@@ -1,5 +1,6 @@
 package its_meow.skeppymod.command;
 
+import its_meow.skeppymod.SkeppyMod;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -23,7 +24,14 @@ public class CommandF extends CommandBase {
 
     @Override
     public int getRequiredPermissionLevel() {
-        return 4;
+        return SkeppyMod.Configuration.command_f_permission_level;
+    }
+    
+    
+
+    @Override
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+        return SkeppyMod.Configuration.command_f_permission_level == 0 || sender.canUseCommand(this.getRequiredPermissionLevel(), this.getName());
     }
 
     @Override

@@ -14,6 +14,9 @@
         "sounds": [
         	{
             	"name": "skeppymod:andioop"
+            },
+            {
+                "name": "skeppymod:andioop2"
             }
         ]
     },

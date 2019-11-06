@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "www",
+        "www",
+        " w "
+    ],
+    "key":
+    {
+        "w":
+        {
+        	"item": "minecraft:wheat",
+        	"data": 0
+        }
+    },
+    "result":
+    {
+        "item": "skeppymod:muffin",
+        "count": 1,
+        "data": 0
+    }
+}

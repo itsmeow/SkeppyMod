@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "minecraft:glass_bottle",
+        	"data": 0
+        },
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:skeppy_bottle_empty",
+        "count": 1,
+        "data": 0
+    }
+}

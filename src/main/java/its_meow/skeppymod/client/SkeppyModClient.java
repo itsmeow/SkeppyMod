@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import org.lwjgl.input.Keyboard;
 
-import its_meow.skeppymod.ISidedProxy;
 import its_meow.skeppymod.SkeppyMod;
 import its_meow.skeppymod.client.model.ModelBipedArmorColoredLayer;
 import its_meow.skeppymod.client.model.ModelBipedArmorLayer;
@@ -18,6 +17,7 @@ import its_meow.skeppymod.entity.EntityMrSqueegy;
 import its_meow.skeppymod.item.ItemMerchArmor;
 import its_meow.skeppymod.network.CPacketSetHoodStatus;
 import its_meow.skeppymod.tileentity.TileEntityStatue;
+import its_meow.skeppymod.util.ISidedProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.Minecraft;
@@ -34,6 +34,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -64,7 +65,7 @@ public class SkeppyModClient implements ISidedProxy {
     public static ModelResourceLocation BBH_STATUE_MLR = new ModelResourceLocation("skeppymod:statue_badboyhalo", "inventory");
 
     public static Field stepSoundF = null;
-    
+
     private static boolean flopLastTick = false;
     private static boolean flop = false;
 
@@ -73,7 +74,7 @@ public class SkeppyModClient implements ISidedProxy {
         hoodie_control = new KeyBinding("key.skeppymod.hoodie_control", Keyboard.KEY_H, "key.skeppymod.category");
         ClientRegistry.registerKeyBinding(hoodie_control);
         try {
-            stepSoundF = SoundType.class.getDeclaredField("stepSound");
+            stepSoundF = ObfuscationReflectionHelper.findField(SoundType.class, "field_185863_p");
             Field modifiersField = Field.class.getDeclaredField("modifiers");
             modifiersField.setAccessible(true);
             modifiersField.setInt(stepSoundF, stepSoundF.getModifiers() & ~Modifier.FINAL);
@@ -93,29 +94,33 @@ public class SkeppyModClient implements ISidedProxy {
                 } else if(!flop && flopLastTick) {
                     resetSounds();
                 }
-                
+
                 flopLastTick = flop;
             }
         }
     }
 
     private static void resetSounds() {
-        for(SoundType type : SOUND_TYPES) {
-            try {
-                stepSoundF.set(type, ORIGINAL_SOUNDS.get(type));
-            } catch(IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
+        if(stepSoundF != null) {
+            for(SoundType type : SOUND_TYPES) {
+                try {
+                    stepSoundF.set(type, ORIGINAL_SOUNDS.get(type));
+                } catch(IllegalArgumentException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     private static void flipFlopIfy() {
-        for(SoundType type : SOUND_TYPES) {
-            ORIGINAL_SOUNDS.put(type, type.getStepSound());
-            try {
-                stepSoundF.set(type, SkeppyMod.FLIP_FLOP_SOUND);
-            } catch(IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
+        if(stepSoundF != null) {
+            for(SoundType type : SOUND_TYPES) {
+                ORIGINAL_SOUNDS.put(type, type.getStepSound());
+                try {
+                    stepSoundF.set(type, SkeppyMod.FLIP_FLOP_SOUND);
+                } catch(IllegalArgumentException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -148,7 +153,7 @@ public class SkeppyModClient implements ISidedProxy {
         SkeppyMod.SKEPPY_LOGO_HOODIE_GREY, SkeppyMod.SKEPPY_LOGO_HOODIE_PINK, SkeppyMod.SKEPPY_LOGO_HOODIE_WHITE, SkeppyMod.SKEPPY_BOTTLE_EMPTY, 
         SkeppyMod.SKEPPY_BOTTLE_FULL, SkeppyMod.CHEESY_FRIES_EMPTY, SkeppyMod.CHEESY_FRIES, SkeppyMod.THIN_CRUST_PIZZA, SkeppyMod.PINECONE, 
         SkeppyMod.DILL_PICKLE_CHIPS, SkeppyMod.DILL_PICKLE_CHIPS_EMPTY, SkeppyMod.JAPANESE_SYMBOL, SkeppyMod.FLIP_FLOPS, SkeppyMod.SPAGHETTIOS, 
-        SkeppyMod.SPAGHETTIOS_EMPTY, SkeppyMod.JIF, SkeppyMod.JIF_EMPTY);
+        SkeppyMod.SPAGHETTIOS_EMPTY, SkeppyMod.JIF, SkeppyMod.JIF_EMPTY, SkeppyMod.SKEPPY_FACE);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.SKEPPY_STATUE), 0, SKEPPY_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.A6D_STATUE), 0, A6D_STATUE_MLR);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(SkeppyMod.BBH_STATUE), 0, BBH_STATUE_MLR);
@@ -176,7 +181,7 @@ public class SkeppyModClient implements ISidedProxy {
     public static void initModel(Block block, int meta) {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), meta, new ModelResourceLocation(block.getRegistryName(), "inventory"));
     }
-    
+
     public static void initModel(Item... items) {
         for(Item item : items) {
             initModel(item, 0);

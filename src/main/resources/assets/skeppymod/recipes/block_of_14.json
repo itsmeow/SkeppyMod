@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "ss",
+        "ss"
+    ],
+    "key":
+    {
+        "s":
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        }
+    },
+    "result":
+    {
+        "item": "skeppymod:14",
+        "count": 1,
+        "data": 0
+    }
+}

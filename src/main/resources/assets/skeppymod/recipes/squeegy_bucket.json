@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        },
+        {
+        	"item": "skeppymod:muffin",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:water_bucket",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:fish",
+        	"data": 1
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:squeegy_bucket",
+        "count": 1,
+        "data": 0
+    }
+}

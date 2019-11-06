@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "minecraft:baked_potato",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:dye",
+        	"data": 11
+        },
+        {
+        	"item": "minecraft:dye",
+        	"data": 1
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:cheesy_fries",
+        "count": 1,
+        "data": 0
+    }
+}

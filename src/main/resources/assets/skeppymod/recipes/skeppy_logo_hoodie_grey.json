@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients":
+    [
+        {
+        	"item": "minecraft:leather_chestplate",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:leather_helmet",
+        	"data": 0
+        },
+        {
+        	"item": "minecraft:dye",
+        	"data": 8
+        },
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        },
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        }
+    ],
+    "result":
+    {
+        "item": "skeppymod:skeppy_logo_hoodie_grey",
+        "count": 1,
+        "data": 0
+    }
+}

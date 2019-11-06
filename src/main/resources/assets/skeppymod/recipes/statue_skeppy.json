@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "sfs",
+        " s ",
+        "s s"
+    ],
+    "key":
+    {
+        "f":
+        {
+        	"item": "skeppymod:skeppy_face",
+        	"data": 0
+        },
+        "s":
+        {
+        	"item": "minecraft:stick",
+        	"data": 0
+        }
+    },
+    "result":
+    {
+        "item": "skeppymod:statue_skeppy",
+        "count": 1,
+        "data": 0
+    }
+}
